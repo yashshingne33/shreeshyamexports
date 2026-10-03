@@ -24,7 +24,7 @@ const IMG = {
   company: "https://media.istockphoto.com/id/485339173/photo/factory.webp?a=1&b=1&s=612x612&w=0&k=20&c=pVG0FJ2E2ul2ncQVBx1Mk0JRaLqry3jhxifLX79xO4s=",
   quality: "https://images.unsplash.com/photo-1578575437130-527eed3abbec?q=80&w=1200",
   packaging: "https://images.unsplash.com/photo-1578575437130-527eed3abbec?q=80&w=1600",
-  shipment: "https://images.unsplash.com/photo-1551522435-a13afa10f103?q=80&w=1600",
+  shipment: "https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8c2hpcG1lbnQlMjBleHBvcnR8ZW58MHx8MHx8fDA%3D",
 };
 
 // Hero strip: team experience is always attributed to the TEAM, never the company.
