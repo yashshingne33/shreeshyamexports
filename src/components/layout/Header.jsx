@@ -141,8 +141,9 @@ const merge = (base = [], extra = []) => {
   const seen = new Set(base.map((l) => l.to));
   return [...base, ...extra.filter((l) => !seen.has(l.to))];
 };
-
-const PRODUCT_LINKS = merge(NAV_PRODUCTS, PLAN_PRODUCTS);
+const PRODUCT_LINKS = merge(NAV_PRODUCTS, PLAN_PRODUCTS).filter(
+  (l) => l.label !== "All products"
+);
 const COMPANY_LINKS = merge(NAV_COMPANY, PLAN_COMPANY);
 
 /* ------------------------------------------------------------------ *
