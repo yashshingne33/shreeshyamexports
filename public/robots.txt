@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://shreeshyamexports.netlify.app/sitemap.xml
