@@ -14,7 +14,7 @@ export const COMPANY = {
 export const EXPERIENCE_LINE = "Over 25 years of team experience in carbon and metallurgical fuels.";
 
 export const NAV_PRODUCTS = [
-  { label: "Coconut shell activated carbon", to: "/products/coconut-shell-activated-carbon/" },
+  { label: "Coconut shell carbon", to: "/products/coconut-shell-activated-carbon/" },
   { label: "Hookah & shisha cubes", to: "/products/hookah-charcoal-cubes/" },
   { label: "Pillow briquettes", to: "/products/pillow-charcoal-briquettes/" },
   { label: "Hexagonal briquettes", to: "/products/hexagonal-charcoal-briquettes/" },
