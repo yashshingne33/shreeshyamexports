@@ -43,7 +43,8 @@ const NAV_BASE =
   `after:absolute after:inset-x-0 after:-bottom-0.5 after:h-0.5 after:origin-left after:scale-x-0 after:bg-brass ` +
   `after:transition-transform hover:after:scale-x-100 motion-reduce:after:transition-none ${FOCUS}`;
 
-const navState = (active) => `${NAV_BASE} ${active ? "text-charcoal after:scale-x-100" : "text-slate hover:text-charcoal"}`;
+const navState = (active) =>
+  `${NAV_BASE} ${active ? "after:scale-x-100" : ""}`;
 
 const BTN_QUOTE =
   "inline-flex items-center justify-center gap-2 rounded-md bg-brass px-6 py-3 text-sm font-bold text-charcoal shadow-sm " +
