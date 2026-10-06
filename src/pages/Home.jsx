@@ -9,18 +9,12 @@ import heroImg from "../assets/hero1.png";
 
 // Final spelling (Sri / Shri / Shree) is pending owner approval.
 const BRAND = "Sri Shyam Exports";
-
-// Image sources. Swap each URL for a local file (e.g. "/images/products/pillow.jpg")
-// once real product photography is ready. If any image fails to load, a
-// branded placeholder is shown instead of a broken icon.
 const IMG = {
   shisha: "https://images.unsplash.com/photo-1630175772812-3368aad7982d?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aG9va2FofGVufDB8fDB8fHww",
   bbq: "https://media.istockphoto.com/id/1180835210/photo/wood-briquette-used-for-grilling-meat-pressed-charcoal-for-smoking-in-the-grill-light.jpg?s=612x612&w=0&k=20&c=iTffhDyrBNQSlOnZ5ySqSSRSQsdNb4MHSOYSyYUOo0E=",
   carbon: "https://media.istockphoto.com/id/504863880/photo/charcoal-on-a-wooden-spoon.webp?a=1&b=1&s=612x612&w=0&k=20&c=CefD1kAhay4q1K8hwqQJZQkNKDAhfKcLB6FIeL7V-ds=",
   hex: "https://images.unsplash.com/photo-1697970684485-eea7cccfa61f?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aGV4YWdvbmFsJTIwY2hhcmNvYWwlMjBicmlxdWV0dGV8ZW58MHx8MHx8fDA%3D",
   shell: "https://images.unsplash.com/photo-1545161254-8e1da4151703?q=80&w=600",
-  // company: "https://media.istockphoto.com/id/1440798037/photo/coal.webp?a=1&b=1&s=612x612&w=0&k=20&c=rHubuGdiqgxPcFoPWUEZ7nxF50W0H3Fi3HgHcaXRlIk=",
-  // company: "https://media.istockphoto.com/id/1209889361/photo/fraight-green-wagons-full-of-coal.webp?a=1&b=1&s=612x612&w=0&k=20&c=2xw3v1_p3S77jOOjK6mLH2GQKnl_Xp_o4DpRgyl4a7A=",
   company: "https://media.istockphoto.com/id/485339173/photo/factory.webp?a=1&b=1&s=612x612&w=0&k=20&c=pVG0FJ2E2ul2ncQVBx1Mk0JRaLqry3jhxifLX79xO4s=",
   quality: "https://images.unsplash.com/photo-1578575437130-527eed3abbec?q=80&w=1200",
   packaging: "https://images.unsplash.com/photo-1578575437130-527eed3abbec?q=80&w=1600",

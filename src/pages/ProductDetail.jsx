@@ -2,7 +2,8 @@ import { Link, Navigate, useParams } from "react-router-dom";
 import { getProduct, PRODUCTS, faqsFor } from "../data/products.js";
 import Breadcrumbs from "../components/Breadcrumbs.jsx";
 import FaqAccordion from "../components/FaqAccordion.jsx";
-import { Seo, WRAP, SECTION, CARD, ProductVisual, QuoteLink } from "../components/ui.jsx";
+import { Seo, WRAP, SECTION, CARD, QuoteLink } from "../components/ui.jsx";
+import { ProductPhoto } from "./Products.jsx";
 
 /* ------------------------------------------------------------------ *
  * SHARED STYLES (same tokens as the homepage, header and footer)
@@ -55,26 +56,29 @@ export default function ProductDetail() {
       <Seo title={p.name} description={p.intro.slice(0, 155)} />
       <Breadcrumbs trail={[{ label: "Products", to: "/products/" }, { label: p.shortName }]} />
 
-      {/* Hero: text left, product right (same language as the homepage hero) */}
-      <section className="bg-charcoal text-white" aria-labelledby="product-title">
-        <div className={`${EDGE} grid items-center gap-10 py-12 sm:py-14 lg:grid-cols-2 lg:gap-14 lg:py-16`}>
+      {/* Hero + quick facts: sized to fit the first screen on desktop
+          (11rem = header + breadcrumb bar; adjust if those heights change) */}
+      <section className="flex flex-col bg-charcoal text-white lg:h-[calc(100svh-11rem)] lg:min-h-[600px]" aria-labelledby="product-title">
+        <div className={`${EDGE} grid flex-1 items-center gap-8 py-10 lg:grid-cols-2 lg:gap-14 lg:py-6`}>
           <div className="order-2 lg:order-1">
             <div className="flex items-center gap-3">
               <span className="h-px w-10 bg-brass" aria-hidden="true" />
               <span className="text-xs font-bold uppercase tracking-widest text-brass">{p.tag}</span>
             </div>
-            <h1 id="product-title" className="mt-4 font-serif text-3xl font-bold leading-[1.1] sm:text-4xl lg:text-5xl">{p.name}</h1>
-            <p className="mt-5 max-w-xl text-base leading-relaxed text-white/85 sm:text-lg">{p.intro}</p>
+            <h1 id="product-title" className="mt-3 font-serif text-3xl font-bold leading-[1.1] sm:text-4xl xl:text-5xl [@media(max-height:820px)]:xl:text-4xl">
+              {p.name}
+            </h1>
+            <p className="mt-4 max-w-xl text-[0.95rem] leading-relaxed text-white/85 sm:text-base">{p.intro}</p>
 
             {p.applications?.length > 0 && (
-              <ul className="mt-6 flex flex-wrap gap-2" aria-label="Applications">
+              <ul className="mt-5 flex flex-wrap gap-2" aria-label="Applications">
                 {p.applications.map((a) => (
                   <li key={a} className="rounded-full border border-white/25 bg-white/5 px-3.5 py-1.5 text-xs font-semibold text-white/90">{a}</li>
                 ))}
               </ul>
             )}
 
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:gap-4">
+            <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:gap-4">
               <QuoteLink product={p.slug} className={BTN_PRIMARY}>Request this Product <span aria-hidden="true">&rarr;</span></QuoteLink>
               {spec?.tdsUrl ? (
                 <a href={spec.tdsUrl} download className={BTN_GHOST_DARK}>Download TDS</a>
@@ -86,16 +90,16 @@ export default function ProductDetail() {
 
           <div className="order-1 lg:order-2">
             <div className="overflow-hidden rounded-2xl border border-white/10 bg-white/5 shadow-2xl">
-              <ProductVisual product={p} className="aspect-[4/3]" />
+              <ProductPhoto product={p} eager className="aspect-[16/10] lg:aspect-auto lg:h-[clamp(280px,48vh,440px)]" />
             </div>
           </div>
         </div>
 
-        {/* Quick facts */}
+        {/* Quick facts: always on the first screen */}
         <div className="border-t-2 border-brass bg-ivory text-charcoal">
           <ul className={`${EDGE} grid sm:grid-cols-3 sm:divide-x sm:divide-charcoal/10`}>
             {FACTS.map((f, i) => (
-              <li key={f.title} className={`flex items-center gap-4 py-5 ${i > 0 ? "sm:pl-8" : ""} ${i < FACTS.length - 1 ? "sm:pr-8" : ""}`}>
+              <li key={f.title} className={`flex items-center gap-4 py-4 ${i > 0 ? "sm:pl-8" : ""} ${i < FACTS.length - 1 ? "sm:pr-8" : ""}`}>
                 <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-brass/60 bg-white text-brass shadow-sm">
                   <Icon d={f.icon} />
                 </span>
@@ -234,7 +238,7 @@ export default function ProductDetail() {
                   className={`${CARD} group flex w-full flex-col overflow-hidden rounded-xl border border-charcoal/10 bg-white shadow-sm transition-all hover:border-brass/40 hover:shadow-lg ${FOCUS}`}
                 >
                   <div className="overflow-hidden">
-                    <ProductVisual product={r} className="aspect-[4/3] transition-transform duration-700 group-hover:scale-105 motion-reduce:transform-none motion-reduce:transition-none" />
+                    <ProductPhoto product={r} className="aspect-[4/3]" imgClass="transition-transform duration-700 group-hover:scale-105 motion-reduce:transform-none motion-reduce:transition-none" />
                   </div>
                   <div className="flex flex-1 flex-col p-5">
                     <p className="text-xs font-bold uppercase tracking-widest text-brass">{r.tag}</p>
