@@ -1,4 +1,5 @@
-import { WRAP } from "./ui.jsx";
+import { Link } from "react-router-dom";
+import { WRAP, SECTION } from "./ui.jsx";
 import heroImg from "../assets/hero1.png";
 
 /* ------------------------------------------------------------------ *
@@ -82,6 +83,54 @@ export function ClosingCta({ id = "closing-cta", title, body, children }) {
           <h2 id={id} className="font-serif text-3xl font-bold leading-tight text-brass sm:text-4xl">{title}</h2>
           {body && <p className="mt-4 text-lg text-white/85">{body}</p>}
           <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">{children}</div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+
+const slug = (t) => t.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+
+/** Policy-style body: sticky "On this page" list + numbered sections + contact card. */
+export function LegalBody({ sections }) {
+  return (
+    <section className={`${SECTION} bg-ivory`}>
+      <div className={`${WRAP} grid items-start gap-10 lg:grid-cols-12 lg:gap-14`}>
+        <nav aria-label="On this page" className="lg:sticky lg:top-28 lg:col-span-4">
+          <div className="rounded-2xl border border-charcoal/10 bg-white p-6 shadow-sm">
+            <p className="text-xs font-bold uppercase tracking-widest text-brass">On this page</p>
+            <ol className="mt-4 space-y-3">
+              {sections.map(([t], i) => (
+                <li key={t}>
+                  <a href={`#${slug(t)}`} className={`flex items-baseline gap-3 text-sm font-medium text-slate transition-colors hover:text-charcoal ${FOCUS}`}>
+                    <span className="font-serif font-bold text-brass">{String(i + 1).padStart(2, "0")}</span>
+                    {t}
+                  </a>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </nav>
+
+        <div className="lg:col-span-8">
+          <div className="space-y-5">
+            {sections.map(([t, d], i) => (
+              <article key={t} id={slug(t)} className="scroll-mt-28 rounded-2xl border border-charcoal/10 border-l-4 border-l-brass bg-white p-6 shadow-sm sm:p-8">
+                <p className="text-xs font-bold uppercase tracking-widest text-brass">Section {String(i + 1).padStart(2, "0")}</p>
+                <h2 className="mt-2 font-serif text-2xl font-bold text-charcoal">{t}</h2>
+                <p className="mt-3 leading-relaxed text-slate">{d}</p>
+              </article>
+            ))}
+          </div>
+
+          <div className="mt-8 flex flex-col gap-5 rounded-2xl bg-charcoal p-6 text-white sm:flex-row sm:items-center sm:justify-between sm:p-8">
+            <div>
+              <p className="font-serif text-xl font-bold text-brass">Questions about this page?</p>
+              <p className="mt-1 text-sm text-white/80">Contact our export desk and we will respond by email.</p>
+            </div>
+            <Link to="/contact/" className={`${BTN_PRIMARY} shrink-0`}>Contact Us <span aria-hidden="true">&rarr;</span></Link>
+          </div>
         </div>
       </div>
     </section>

@@ -1,6 +1,7 @@
 import Breadcrumbs from "../components/Breadcrumbs.jsx";
 import { COMPANY } from "../data/site.js";
-import { Seo, PageHero, WRAP, SECTION, BODY } from "../components/ui.jsx";
+import { Seo } from "../components/ui.jsx";
+import { PageBanner, LegalBody } from "../components/PageKit.jsx";
 
 const S = [
   ["Purpose of this site", `This website describes products offered by ${COMPANY.name} and lets you request a quotation. Product information is for enquiry purposes and is not a binding offer or sales contract until confirmed in a written quotation.`],
@@ -12,13 +13,9 @@ export default function Terms() {
   return (
     <>
       <Seo title="Website Terms" description={`Terms of use for the ${COMPANY.name} website.`} />
-      <PageHero title="Website Terms" />
+      <PageBanner eyebrow="Legal" title="Website Terms" body="How this website and its product information should be used." />
       <Breadcrumbs trail={[{ label: "Website Terms" }]} />
-      <section className={SECTION}>
-        <div className={`${WRAP} max-w-3xl`}>
-          {S.map(([t, d]) => <div key={t} className="mb-8"><h2 className="text-xl font-bold">{t}</h2><p className={`mt-2 ${BODY}`}>{d}</p></div>)}
-        </div>
-      </section>
+      <LegalBody sections={S} />
     </>
   );
 }

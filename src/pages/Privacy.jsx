@@ -1,6 +1,7 @@
 import Breadcrumbs from "../components/Breadcrumbs.jsx";
 import { COMPANY } from "../data/site.js";
-import { Seo, PageHero, WRAP, SECTION, BODY } from "../components/ui.jsx";
+import { Seo } from "../components/ui.jsx";
+import { PageBanner, LegalBody } from "../components/PageKit.jsx";
 
 const S = [
   ["What we collect", "When you submit the enquiry form we collect what you enter: your name, company, email, country, product, quantity and message details, plus any files you attach. We do not collect personal data through any other form on this site."],
@@ -13,13 +14,9 @@ export default function Privacy() {
   return (
     <>
       <Seo title="Privacy Policy" description={`How ${COMPANY.name} handles enquiry information.`} />
-      <PageHero title="Privacy Policy" />
+      <PageBanner eyebrow="Legal" title="Privacy Policy" body="What we collect through the enquiry form, how we use it and how to reach us about it." />
       <Breadcrumbs trail={[{ label: "Privacy Policy" }]} />
-      <section className={SECTION}>
-        <div className={`${WRAP} max-w-3xl`}>
-          {S.map(([t, d]) => <div key={t} className="mb-8"><h2 className="text-xl font-bold">{t}</h2><p className={`mt-2 ${BODY}`}>{d}</p></div>)}
-        </div>
-      </section>
+      <LegalBody sections={S} />
     </>
   );
 }
