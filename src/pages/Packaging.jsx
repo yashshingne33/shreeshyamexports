@@ -13,7 +13,7 @@ import {
  * sample or approved proof → production release.
  * ------------------------------------------------------------------ */
 const ROUTES = [
-  { title: "Bulk", body: "Bulk packing for your selected grade.", icon: ICONS.box, img: IMAGES.warehouse },
+  { title: "", body: " packing for your selected grade.", icon: ICONS.box, img: IMAGES.warehouse },
   { title: "Retail", body: "Retail-ready packs for your sales channel.", icon: ICONS.clipboard, img: IMAGES.shisha },
   { title: "Private Label", body: "Your brand on agreed pack formats.", icon: ICONS.shield, img: IMAGES.paperwork },
 ];
