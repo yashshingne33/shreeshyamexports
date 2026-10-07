@@ -51,7 +51,7 @@ const BTN_GHOST_LIGHT =
  * If an image fails to load, the original ProductVisual is shown instead.
  * Also used by ProductDetail.jsx.
  * ------------------------------------------------------------------ */
-const PRODUCT_IMG = {
+export const PRODUCT_IMG = {
   "coconut-shell-activated-carbon": "https://media.istockphoto.com/id/1180352712/photo/coconut-charcoal-isolated-on-white-background.jpg?s=612x612&w=0&k=20&c=UGGQfQRzqgMAHMB6BW-a8WL_VAO9okAm2crOsZ1WXwI=",
   "hookah-charcoal-cubes": "https://media.istockphoto.com/id/951444672/photo/texture-of-coal-for-hookah.jpg?s=612x612&w=0&k=20&c=yvxWHPvRG4zOjilTHhZsvREbi57bYolEKg8EvJhYZ3I=",
   "pillow-charcoal-briquettes": "https://media.istockphoto.com/id/652635166/photo/close-up-of-the-coconut-shell-charcoal-briquette.jpg?s=612x612&w=0&k=20&c=FAPwAnZBJpIaHaGfvE9CclG_9iCtae7fphwwQPqURww=",
