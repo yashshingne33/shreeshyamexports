@@ -719,12 +719,6 @@ export default function Home() {
                       <Link to={`/products/${p.slug}/`} className={`${TEXT_LINK} text-[0.8125rem]`}>
                         View Specifications <span aria-hidden="true">&rarr;</span>
                       </Link>
-                      <QuoteLink
-                        product={p.slug}
-                        className="text-[0.8125rem] font-semibold text-charcoal underline decoration-brass decoration-2 underline-offset-4 hover:text-brass"
-                      >
-                        Request a Quote
-                      </QuoteLink>
                     </div>
                   </div>
                 </article>
