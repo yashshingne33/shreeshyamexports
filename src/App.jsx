@@ -19,6 +19,7 @@ import Privacy from "./pages/Privacy.jsx";
 import Terms from "./pages/Terms.jsx";
 import ThankYou from "./pages/ThankYou.jsx";
 import NotFound from "./pages/NotFound.jsx";
+import Disclaimer from "./pages/Disclaimer.jsx";
 
 function ScrollToTop() {
   const { pathname, hash } = useLocation();
@@ -51,6 +52,7 @@ export default function App() {
           <Route path="/thank-you/" element={<ThankYou />} />
           <Route path="/guides/" element={<Navigate to="/resources/" replace />} />
           <Route path="*" element={<NotFound />} />
+          <Route path="/disclaimer/" element={<Disclaimer />} />
         </Routes>
       </main>
       <Footer />
