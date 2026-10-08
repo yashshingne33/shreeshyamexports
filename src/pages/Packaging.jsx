@@ -246,6 +246,7 @@ import {
   PageBanner, TrustStrip, SectionHeader, ClosingCta, Photo, Icon, ICONS, IMAGES, GRID_BG,
   BTN_PRIMARY, BTN_GHOST_DARK, TEXT_LINK,
 } from "../components/PageKit.jsx";
+import { imageFor } from "./Products.jsx"; // same product photos as the Products and Home pages
 
 /* ------------------------------------------------------------------ *
  * CONTENT — plan: a packaging matrix (formats to DISCUSS, never
@@ -356,7 +357,7 @@ export default function Packaging() {
                 <article className="group flex w-full flex-col overflow-hidden rounded-2xl border border-charcoal/10 bg-white shadow-sm transition-all hover:-translate-y-1 hover:border-brass/50 hover:shadow-xl motion-reduce:transform-none motion-reduce:transition-none">
                   <div className="relative">
                     <Photo
-                      src={PRODUCT_IMG[m.slug]}
+                      src={imageFor(m)}
                       alt={m.product}
                       ratio="aspect-[4/3]"
                       zoom

@@ -680,59 +680,59 @@ export default function Home() {
       </section>
 
       {/* 03 Product portfolio: five clear categories */}
-<section className={`${SECTION} bg-white`} aria-labelledby="portfolio-title">
-  <div className={WRAP}>
-    <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-      <SectionHeader eyebrow="Product Portfolio" title="Coconut Charcoal and Activated Carbon" id="portfolio-title"
-        sub="Five product categories, each with its own specification page." />
-      <Link to="/products/" className={`${BTN_GHOST_LIGHT} shrink-0`}>View all products</Link>
-    </div>
+      <section className={`${SECTION} bg-white`} aria-labelledby="portfolio-title">
+        <div className={WRAP}>
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+            <SectionHeader eyebrow="Product Portfolio" title="Coconut Charcoal and Activated Carbon" id="portfolio-title"
+              sub="Five product categories, each with its own specification page." />
+            <Link to="/products/" className={`${BTN_GHOST_LIGHT} shrink-0`}>View all products</Link>
+          </div>
 
-    <ul className="mt-10 grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
-      {PORTFOLIO.map((p) => (
-        <li key={p.slug} className="flex">
-          <article className="group relative flex w-full flex-col overflow-hidden rounded-xl border border-charcoal/10 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-brass/50 hover:shadow-lg">
-            {/* brass accent line, animates in on hover */}
-            <span
-              className="absolute inset-x-0 top-0 z-10 h-0.5 origin-left scale-x-0 bg-brass transition-transform duration-300 group-hover:scale-x-100"
-              aria-hidden="true"
-            />
+          <ul className="mt-10 grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
+            {PORTFOLIO.map((p) => (
+              <li key={p.slug} className="flex">
+                <article className="group relative flex w-full flex-col overflow-hidden rounded-xl border border-charcoal/10 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-brass/50 hover:shadow-lg">
+                  {/* brass accent line, animates in on hover */}
+                  <span
+                    className="absolute inset-x-0 top-0 z-10 h-0.5 origin-left scale-x-0 bg-brass transition-transform duration-300 group-hover:scale-x-100"
+                    aria-hidden="true"
+                  />
 
-            <Link to={`/products/${p.slug}/`} tabIndex={-1} aria-hidden="true" className="relative block overflow-hidden">
-              <ProductImage slug={p.slug} alt={p.name} ratio="aspect-[4/3]" zoom />
-              {p.technical && (
-                <span className="absolute left-2.5 top-2.5 rounded bg-charcoal px-2 py-0.5 text-[0.6rem] font-bold uppercase tracking-widest text-brass">
-                  Technical
-                </span>
-              )}
-            </Link>
+                  <Link to={`/products/${p.slug}/`} tabIndex={-1} aria-hidden="true" className="relative block overflow-hidden">
+                    <ProductImage slug={p.slug} alt={p.name} ratio="aspect-[4/3]" zoom />
+                    {p.technical && (
+                      <span className="absolute left-2.5 top-2.5 rounded bg-charcoal px-2 py-0.5 text-[0.6rem] font-bold uppercase tracking-widest text-brass">
+                        Technical
+                      </span>
+                    )}
+                  </Link>
 
-            <div className="flex flex-1 flex-col p-4">
-              <h3 className="font-serif text-base font-bold leading-snug text-charcoal">
-                <Link to={`/products/${p.slug}/`} className="hover:text-brass focus-visible:outline focus-visible:outline-2 focus-visible:outline-brass">
-                  {p.name}
-                </Link>
-              </h3>
-              <p className="mt-1.5 line-clamp-3 flex-1 text-[0.8125rem] leading-snug text-slate">{p.use}</p>
+                  <div className="flex flex-1 flex-col p-4">
+                    <h3 className="font-serif text-base font-bold leading-snug text-charcoal">
+                      <Link to={`/products/${p.slug}/`} className="hover:text-brass focus-visible:outline focus-visible:outline-2 focus-visible:outline-brass">
+                        {p.name}
+                      </Link>
+                    </h3>
+                    <p className="mt-1.5 line-clamp-3 flex-1 text-[0.8125rem] leading-snug text-slate">{p.use}</p>
 
-              <div className="mt-4 flex flex-col gap-1.5 border-t border-charcoal/10 pt-3">
-                <Link to={`/products/${p.slug}/`} className={`${TEXT_LINK} text-[0.8125rem]`}>
-                  View Specifications <span aria-hidden="true">&rarr;</span>
-                </Link>
-                <QuoteLink
-                  product={p.slug}
-                  className="text-[0.8125rem] font-semibold text-charcoal underline decoration-brass decoration-2 underline-offset-4 hover:text-brass"
-                >
-                  Request a Quote
-                </QuoteLink>
-              </div>
-            </div>
-          </article>
-        </li>
-      ))}
-    </ul>
-  </div>
-</section>
+                    <div className="mt-4 flex flex-col gap-1.5 border-t border-charcoal/10 pt-3">
+                      <Link to={`/products/${p.slug}/`} className={`${TEXT_LINK} text-[0.8125rem]`}>
+                        View Specifications <span aria-hidden="true">&rarr;</span>
+                      </Link>
+                      <QuoteLink
+                        product={p.slug}
+                        className="text-[0.8125rem] font-semibold text-charcoal underline decoration-brass decoration-2 underline-offset-4 hover:text-brass"
+                      >
+                        Request a Quote
+                      </QuoteLink>
+                    </div>
+                  </div>
+                </article>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
 
 
       {/* 04 Why */}
