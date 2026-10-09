@@ -730,25 +730,68 @@ export default function Home() {
 
 
       {/* 04 Why */}
-      <section className={`${SECTION} bg-white`} aria-labelledby="why-title">
-        <div className={`${WRAP} grid gap-12 lg:grid-cols-12 lg:gap-16`}>
-          <div className="lg:col-span-4">
-            <div className="lg:sticky lg:top-28">
-              <SectionHeader eyebrow="Why Choose Us" title={`Why ${COMPANY.name}`} id="why-title" sub="Reasons that matter to an overseas buyer, stated plainly." />
-              <QuoteLink className={`${BTN_PRIMARY} mt-8`}>Send Your Requirement <span aria-hidden="true">&rarr;</span></QuoteLink>
-            </div>
+<section className={`${SECTION} relative overflow-hidden bg-ivory`} aria-labelledby="why-title">
+  <div className="pointer-events-none absolute inset-0 opacity-60" style={GRID_BG} aria-hidden="true" />
+
+  <div className={`relative ${WRAP}`}>
+    <div className="grid items-center gap-x-10 gap-y-10 lg:grid-cols-[1fr_auto_1fr] lg:gap-y-14">
+
+      {/* Center hub */}
+      <div className="flex justify-center lg:col-start-2 lg:row-span-3 lg:row-start-1">
+        <div className="relative">
+          {/* decorative rings */}
+          <span className="absolute -inset-4 rounded-full border border-dashed border-brass/60" aria-hidden="true" />
+          <span className="absolute -inset-9 hidden rounded-full border border-brass/20 sm:block" aria-hidden="true" />
+
+          <div className="relative flex h-64 w-64 flex-col items-center justify-center rounded-full border-4 border-brass bg-charcoal p-8 text-center text-white shadow-2xl sm:h-72 sm:w-72">
+            <span className="h-0.5 w-10 bg-brass" aria-hidden="true" />
+            <span className="mt-3 text-[0.7rem] font-bold uppercase tracking-widest text-brass">Why Choose Us</span>
+            <h2 id="why-title" className="mt-2 font-serif text-2xl font-bold leading-tight sm:text-[1.7rem]">
+              Why <span className="text-brass">{COMPANY.name}</span>
+            </h2>
+            <p className="mt-3 text-xs leading-snug text-white/75">
+              Reasons that matter to an overseas buyer, stated plainly.
+            </p>
           </div>
-          <ol className="grid gap-x-10 gap-y-8 sm:grid-cols-2 lg:col-span-8">
-            {WHY.map(([t, d], i) => (
-              <li key={t} className="border-t-2 border-brass pt-5">
-                <span className="font-serif text-3xl font-bold text-brass/70">{String(i + 1).padStart(2, "0")}</span>
-                <h3 className="mt-2 font-serif text-xl font-bold text-charcoal">{t}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-slate">{d}</p>
-              </li>
-            ))}
-          </ol>
         </div>
-      </section>
+      </div>
+
+      {/* Points: 1 column mobile, 2 columns tablet, arc around the hub on desktop */}
+      <ol className="grid gap-6 sm:grid-cols-2 lg:contents">
+        {WHY.map(([t, d], i) => {
+          const isLeft = i % 2 === 0;       // 0,2,4 left | 1,3,5 right
+          const row = Math.floor(i / 2);    // 0,1,2
+          const POS = [
+            "lg:col-start-1 lg:row-start-1", "lg:col-start-3 lg:row-start-1",
+            "lg:col-start-1 lg:row-start-2", "lg:col-start-3 lg:row-start-2",
+            "lg:col-start-1 lg:row-start-3", "lg:col-start-3 lg:row-start-3",
+          ][i];
+          // middle row pushed outward so the points form an arc
+          const arc = row === 1 ? (isLeft ? "lg:mr-10" : "lg:ml-10") : "";
+          return (
+            <li
+              key={t}
+              className={`group flex items-start gap-4 ${POS} ${arc} ${isLeft ? "lg:flex-row-reverse lg:text-right" : ""}`}
+            >
+              <span className="relative flex h-14 w-14 shrink-0 items-center justify-center rounded-full border-2 border-brass bg-white font-serif text-xl font-bold text-brass shadow-md transition-all duration-300 group-hover:scale-110 group-hover:bg-brass group-hover:text-white">
+                <span className="absolute -inset-1.5 rounded-full border border-dashed border-brass/50" aria-hidden="true" />
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <div className="min-w-0 pt-1">
+                <h3 className="font-serif text-lg font-bold leading-snug text-charcoal">{t}</h3>
+                <p className="mt-1.5 text-sm leading-relaxed text-slate">{d}</p>
+              </div>
+            </li>
+          );
+        })}
+      </ol>
+    </div>
+
+    <div className="mt-14 flex justify-center">
+      <QuoteLink className={BTN_PRIMARY}>Send Your Requirement <span aria-hidden="true">&rarr;</span></QuoteLink>
+    </div>
+  </div>
+</section>
 
       {/* 05 Featured products (same images as the portfolio above) */}
       <section className="relative overflow-hidden bg-charcoal py-20 text-white lg:py-24" aria-labelledby="featured-title">

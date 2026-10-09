@@ -57,7 +57,7 @@ export default function About() {
       <section className={`${SECTION} bg-white`} aria-labelledby="today-title">
         <div className={`${WRAP} grid items-center gap-14 lg:grid-cols-12 lg:gap-16`}>
           <div className="relative lg:col-span-5">
-            <Photo src={IMAGES.port} alt="Export shipping at a container port" ratio="aspect-[4/5]" className="rounded-2xl border border-charcoal/10 shadow-xl" />
+            <Photo src="https://media.istockphoto.com/id/1163589059/photo/about-us.webp?a=1&b=1&s=612x612&w=0&k=20&c=5RYjVfid3BgQisNqoRk6Sskr8tHK5lRKfOCscPOvEBE=" alt="Export shipping at a container port" ratio="aspect-[4/5]" className="rounded-2xl border border-charcoal/10 shadow-xl" />
             <div className="absolute -bottom-6 right-4 rounded-xl border-l-4 border-brass bg-charcoal px-5 py-4 text-white shadow-2xl sm:right-8">
               <p className="font-serif text-lg font-bold">Established experience</p>
               <p className="text-xs text-white/75">A new export company</p>

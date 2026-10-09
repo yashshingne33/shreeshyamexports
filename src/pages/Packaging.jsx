@@ -140,7 +140,7 @@
 //             <span className="absolute left-1/2 top-1/2 z-10 hidden h-12 w-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-2 border-brass bg-charcoal font-serif text-sm font-bold text-brass md:flex" aria-hidden="true">vs</span>
 //             {[
 //               { t: "Retail packing", body: "Presents your brand and product to the end customer, and carries the labelling for your market.", icon: ICONS.box, img: IMAGES.shisha },
-//               { t: "Transport packing", body: "Protects the product through handling and shipment. Appearance alone does not establish suitability for transport.", icon: ICONS.truck, img: IMAGES.port },
+//               { t: "Transport packing", body: "Protects the product through handling and shipment. Appearance alone does not establish suitability for transport.", icon: ICONS.truck, img: IMAGES },
 //             ].map((c) => (
 //               <article key={c.t} className="group overflow-hidden rounded-2xl border border-white/15 bg-white/5 backdrop-blur-sm">
 //                 <Photo src={c.img} alt="" ratio="aspect-[16/7]" zoom />
