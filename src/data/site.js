@@ -27,7 +27,7 @@ export const NAV_COMPANY = [
   { label: "Export ordering", to: "/export-ordering/" },
   { label: "Resources", to: "/resources/" },
   { label: "FAQ", to: "/faq/" },
-  { label: "Contact", to: "/contact/" },
+  // { label: "Contact", to: "/contact/" },
 ];
 
 export const ORDERING_STEPS = [

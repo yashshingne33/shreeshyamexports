@@ -11,7 +11,7 @@ import Quality from "./pages/Quality.jsx";
 import Packaging from "./pages/Packaging.jsx";
 import ExportOrdering from "./pages/ExportOrdering.jsx";
 import About from "./pages/About.jsx";
-import Contact from "./pages/Contact.jsx";
+// import Contact from "./pages/Contact.jsx";
 import RequestQuote from "./pages/RequestQuote.jsx";
 import Resources from "./pages/Resources.jsx";
 import FAQ from "./pages/FAQ.jsx";
@@ -43,7 +43,7 @@ export default function App() {
           <Route path="/packaging-private-label/" element={<Packaging />} />
           <Route path="/export-ordering/" element={<ExportOrdering />} />
           <Route path="/about/" element={<About />} />
-          <Route path="/contact/" element={<Contact />} />
+          {/* <Route path="/contact/" element={<Contact />} /> */}
           <Route path="/request-a-quote/" element={<RequestQuote />} />
           <Route path="/resources/" element={<Resources />} />
           <Route path="/faq/" element={<FAQ />} />
