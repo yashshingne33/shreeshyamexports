@@ -81,14 +81,6 @@ export default function RequestQuote() {
               </div>
             </div>
 
-            <div className="rounded-2xl border border-charcoal/10 bg-white p-7 shadow-sm">
-              <div className="flex items-center gap-3">
-                <span className="flex h-10 w-10 items-center justify-center rounded-full bg-charcoal text-brass"><Icon d={ICONS.globe} className="h-5 w-5" /></span>
-                <h2 className="font-serif text-xl font-bold text-charcoal">Contact details</h2>
-              </div>
-              <ContactLines className="mt-5" />
-            </div>
-
             <div className="rounded-2xl border border-charcoal/10 border-l-4 border-l-brass bg-white p-6 shadow-sm">
               <p className="font-serif text-lg font-bold text-charcoal">Not sure what to ask for?</p>
               <p className="mt-1 text-sm text-slate">Browse the products or read the buyer questions first.</p>
