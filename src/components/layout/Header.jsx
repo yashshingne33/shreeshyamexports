@@ -21,7 +21,6 @@ const PLAN_COMPANY = [
   { label: "Export Ordering", to: "/export-ordering/" },
   { label: "Resources", to: "/resources/" },
   { label: "FAQ", to: "/faq/" },
-  // { label: "Contact", to: "/contact/" },
 ];
 
 const merge = (base = [], extra = []) => {
@@ -132,7 +131,8 @@ export default function Header() {
   const openBtnRef = useRef(null);
   const dialogRef = useRef(null);
 
-  const inGroup = (links) => links.some((l) => pathname.startsWith(l.to));
+  const inGroup = (links) =>
+  links.some((l) => (l.to === "/" ? pathname === "/" : pathname.startsWith(l.to)));
 
   useEffect(() => { setMenuOpen(false); }, [pathname]);
 

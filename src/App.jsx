@@ -22,10 +22,13 @@ import NotFound from "./pages/NotFound.jsx";
 import Disclaimer from "./pages/Disclaimer.jsx";
 
 function ScrollToTop() {
-  const { pathname, hash } = useLocation();
-  useEffect(() => { if (!hash) window.scrollTo(0, 0); }, [pathname, hash]);
+  const { pathname, hash, key } = useLocation();
+  useEffect(() => {
+    if (!hash) window.scrollTo(0, 0);
+  }, [pathname, hash, key]);
   return null;
 }
+
 
 export default function App() {
   return (

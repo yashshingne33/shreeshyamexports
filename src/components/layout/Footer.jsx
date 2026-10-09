@@ -35,7 +35,10 @@ const merge = (base = [], extra = []) => {
 
 // Products: hub first, then the families.
 const PRODUCT_LINKS = [{ label: "All Products", to: "/products/" }, ...merge(NAV_PRODUCTS, PLAN_PRODUCTS).filter((l) => l.to !== "/products/")];
-const COMPANY_LINKS = merge(NAV_COMPANY, PLAN_COMPANY);
+const COMPANY_LINKS = [
+  { label: "Home", to: "/" },
+  ...merge(NAV_COMPANY, PLAN_COMPANY),
+];
 
 /* ------------------------------------------------------------------ *
  * STYLES (shared with the header and hero)
