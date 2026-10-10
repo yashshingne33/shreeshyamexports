@@ -19,7 +19,6 @@ const PLAN_COMPANY = [
   { label: "Export Ordering", to: "/export-ordering/" },
   { label: "Resources", to: "/resources/" },
   { label: "FAQ", to: "/faq/" },
-  { label: "Contact", to: "/contact/" },
 ];
 const EXPLORE = [
   { label: "Applications", to: "/applications/" },
