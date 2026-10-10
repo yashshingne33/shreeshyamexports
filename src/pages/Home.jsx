@@ -8,21 +8,6 @@ import {
   BTN_PRIMARY, BTN_GHOST_DARK, BTN_GHOST_LIGHT, TEXT_LINK, EDGE,
 } from "../components/PageKit.jsx";
 
-/* ------------------------------------------------------------------ *
- * PRODUCT IMAGES
- * Put your photos in  src/assets/products/  and name each file after
- * the product slug, e.g.
- *   coconut-shell-charcoal.jpg
- *   hookah-charcoal-cubes.jpg
- *   hexagonal-charcoal-briquettes.jpg
- *   pillow-charcoal-briquettes.jpg
- *   coconut-shell-activated-carbon.jpg
- * (.jpg / .jpeg / .png / .webp all work.)
- *
- * The same image is reused everywhere a product appears (portfolio,
- * featured, packaging). If a file is missing, that product falls back
- * to the old <ProductPhoto> so nothing breaks.
- * ------------------------------------------------------------------ */
 const PRODUCT_IMAGES = Object.fromEntries(
   Object.entries(
     import.meta.glob("../assets/products/*.{jpg,jpeg,png,webp}", { eager: true, import: "default" })
