@@ -4,7 +4,7 @@ import FaqAccordion from "../components/FaqAccordion.jsx";
 import { FAQS } from "../data/site.js";
 import { Seo, WRAP, SECTION, QuoteLink } from "../components/ui.jsx";
 import {
-  PhotoBanner, SectionHeader, ClosingCta, IMAGES, GRID_BG,
+  PageBanner, TrustStrip, SectionHeader, ClosingCta, Photo, Icon, ICONS, IMAGES, GRID_BG,
   BTN_PRIMARY, BTN_GHOST_DARK,
 } from "../components/PageKit.jsx";
 
@@ -13,7 +13,7 @@ export default function FAQ() {
     <>
       <Seo title="FAQ" description="Answers on products, samples, packaging, documents, MOQ, lead time and trade terms." />
 
-      <PhotoBanner
+      <PageBanner
         image={IMAGES.containers}
         eyebrow="FAQ"
         title="Frequently Asked Questions"
@@ -21,7 +21,7 @@ export default function FAQ() {
       >
         <QuoteLink className={BTN_PRIMARY}>Request an Export Quote <span aria-hidden="true">&rarr;</span></QuoteLink>
         <Link to="/request-a-quote/" className={BTN_GHOST_DARK}>Contact Us</Link>
-      </PhotoBanner>
+      </PageBanner>
 
       <Breadcrumbs trail={[{ label: "FAQ" }]} />
 
