@@ -4,7 +4,7 @@ import RfqForm from "../components/RfqForm.jsx";
 import { getProduct } from "../data/products.js";
 import { Seo, WRAP, SECTION, ContactLines } from "../components/ui.jsx";
 import {
-  PhotoBanner, TrustStrip, Icon, ICONS, IMAGES, GRID_BG, TEXT_LINK,
+  PageBanner, TrustStrip, Icon, ICONS, GRID_BG, TEXT_LINK,
 } from "../components/PageKit.jsx";
 
 const TRUST = [
@@ -28,8 +28,7 @@ export default function RequestQuote() {
     <>
       <Seo title="Request an Export Quote" description="Tell us the product, quantity and destination. Add your technical specification for a tailored export quotation." />
 
-      <PhotoBanner
-        image={IMAGES.port}
+      <PageBanner
         eyebrow="Request a Quote"
         title="Request an Export Quote"
         body="Tell us the product, quantity and destination. Add your technical specification if you have one."
