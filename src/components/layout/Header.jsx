@@ -192,7 +192,7 @@ export default function Header() {
            <img src={logoImg} alt="" className="h-11 w-auto shrink-0 sm:h-12 lg:h-14"/>
             <span className="flex flex-col leading-none">
               <span className="font-serif text-xl font-bold tracking-tight text-charcoal">{COMPANY.name}</span>
-              <span className="mt-1.5 hidden text-[0.625rem] font-bold uppercase tracking-[0.2em] text-brass sm:block">Merchant Exporter</span>
+              {/* <span className="mt-1.5 hidden text-[0.625rem] font-bold uppercase tracking-[0.2em] text-brass sm:block">Merchant Exporter</span> */}
             </span>
           </Link>
 

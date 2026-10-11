@@ -81,11 +81,11 @@ export default function Footer() {
               <img src={logoImg} alt="" width={30} height={30} className="h-16 w-16 shrink-0 object-contain" />
               <span className="flex flex-col leading-none">
                 <span className="font-serif text-xl font-bold tracking-tight">{COMPANY.name}</span>
-                <span className="mt-1.5 text-[0.625rem] font-bold uppercase tracking-[0.2em] text-brass">Merchant Exporter</span>
+                {/* <span className="mt-1.5 text-[0.625rem] font-bold uppercase tracking-[0.2em] text-brass">Merchant Exporter</span> */}
               </span>
             </Link>
             <p className="mt-5 max-w-sm text-sm leading-relaxed text-ivory/75">
-              India-based merchant exporter of coconut charcoal products and coconut shell activated carbon for international buyers.
+              India-based t exporter of coconut charcoal products and coconut shell activated carbon for international buyers.
             </p>
             <p className="mt-4 max-w-sm border-l-2 border-brass pl-4 text-sm leading-relaxed text-ivory/70">
               A new export company. Over 25 years of team industry experience.
