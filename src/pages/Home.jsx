@@ -53,8 +53,8 @@ const FEATURES = [
 
 const PORTFOLIO = [
   { name: "Coconut Shell Charcoal", slug: "coconut-shell-charcoal", use: "Carbonised coconut shell for specified uses." },
-  { name: "Shisha / Hookah Charcoal Cubes", slug: "hookah-cubes", use: "Cube formats for shisha brands, distributors and wholesale buyers." },
-  { name: "Hexagonal Charcoal Briquettes", slug: "hex-charcoal", use: "Hexagonal formats with a defined shape." },
+  { name: "Shisha / Hookah Charcoal Cubes", slug: "shisha-cubes", use: "Cube formats for shisha brands, distributors and wholesale buyers." },
+  { name: "Hexagonal Charcoal Briquettes", slug: "hexa-charcoal", use: "Hexagonal formats with a defined shape." },
   { name: "BBQ Charcoal / Briquettes", slug: "charcoal-briquette", use: "Pillow-shaped briquettes for BBQ and foodservice supply." },
   { name: "Coconut Shell Activated Carbon", slug: "activated-charcoal", use: "Presented with its own technical data, not as another charcoal shape.", technical: true },
 ];
