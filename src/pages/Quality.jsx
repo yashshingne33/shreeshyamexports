@@ -6,6 +6,11 @@ import {
   PageBanner, TrustStrip, SectionHeader, ClosingCta, Photo, Icon, ICONS, IMAGES, GRID_BG,
   BTN_PRIMARY, BTN_GHOST_DARK, TEXT_LINK,
 } from "../components/PageKit.jsx";
+import paperwork from "../assets/paperwork.jpg";
+import certification from "../assets/certification.jpg";
+import transport from "../assets/transport.jpg";
+import logistics from "../assets/logistics.jpg"; 
+
 
 /* ------------------------------------------------------------------ *
  * CONTENT — plan: responsibilities, documents, substitution approval,
@@ -81,7 +86,7 @@ export default function Quality() {
       <section id="responsibilities" className={`${SECTION} scroll-mt-24 bg-white`} aria-labelledby="roles-title">
         <div className={`${WRAP} grid items-center gap-14 lg:grid-cols-12 lg:gap-16`}>
           <div className="relative lg:col-span-5">
-            <Photo src={IMAGES.paperwork} alt="Documentation and quality review" ratio="aspect-[4/5]" className="rounded-2xl border border-charcoal/10 shadow-xl" />
+            <Photo src={paperwork} alt="Documentation and quality review" ratio="aspect-[4/5]" className="rounded-2xl border border-charcoal/10 shadow-xl" />
             <div className="absolute inset-x-4 -bottom-8 rounded-xl border-l-4 border-brass bg-charcoal p-5 text-white shadow-2xl sm:inset-x-8">
               <p className="font-serif text-lg font-bold leading-snug">Specifications and test reports provide the evidence for each offered grade.</p>
             </div>
@@ -160,7 +165,7 @@ export default function Quality() {
             </ol>
           </div>
           <div className="order-1 lg:order-2 lg:col-span-5">
-            <Photo src={IMAGES.logistics} alt="Export logistics and shipping" ratio="aspect-[4/5]" className="rounded-2xl border border-charcoal/10 shadow-xl" />
+            <Photo src={logistics} alt="Export logistics and shipping" ratio="aspect-[4/5]" className="rounded-2xl border border-charcoal/10 shadow-xl" />
           </div>
         </div>
       </section>
@@ -171,12 +176,12 @@ export default function Quality() {
           <SectionHeader eyebrow="Compliance" title="Transport and Certification" id="transport-title" center />
           <div className="mt-12 grid gap-8 lg:grid-cols-2">
             {[
-              { t: "Transport", img: IMAGES.port, alt: "Containers at a port", icon: ICONS.truck, body: "Fuel charcoal and activated carbon are reviewed separately for transport. Classification, packing and documentation are confirmed for the actual product and the selected carrier before quotation or dispatch, under the current IMDG Code requirements." },
-              { t: "Certification", img: IMAGES.paperwork, alt: "Certificates and documentation", icon: ICONS.shield, body: "A certificate is shown on this site only for the exact product and scope it covers. A supplier\u2019s certificate does not automatically certify the exporter." },
+             { t: "Transport", img: transport, alt: "Containers at a port", icon: ICONS.truck, body: "Fuel charcoal and activated carbon are reviewed separately for transport. ..." },
+             { t: "Certification", img: certification, alt: "Certificates and documentation", icon: ICONS.shield, body: "A certificate is shown on this site only for the exact product and scope it covers. ..." },
             ].map((c) => (
               <article key={c.t} className="group overflow-hidden rounded-2xl border border-charcoal/10 bg-ivory shadow-sm transition-shadow hover:shadow-xl">
                 <div className="relative">
-                  <Photo src={c.img} alt={c.alt} ratio="aspect-[16/8]" zoom />
+                  <Photo src={c.img} alt={c.alt} ratio="aspect-[16/10]" zoom imgClass="object-center" />
                   <div className="absolute inset-0 bg-gradient-to-t from-charcoal/70 to-transparent" aria-hidden="true" />
                   <span className="absolute bottom-4 left-5 flex h-12 w-12 items-center justify-center rounded-full border-2 border-brass bg-charcoal text-brass shadow-lg"><Icon d={c.icon} className="h-6 w-6" /></span>
                 </div>
