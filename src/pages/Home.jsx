@@ -39,11 +39,6 @@ function ProductImage({ slug, alt, ratio, zoom = false, className = "" }) {
   );
 }
 
-/* ------------------------------------------------------------------ *
- * CONTENT — follows the revision brief (v1.0, Oct 2026):
- * supplier/exporter positioning, 25 years = the TEAM's experience,
- * no unsupported specs, certifications or capacity claims.
- * ------------------------------------------------------------------ */
 const FEATURES = [
   { title: "25+ Years", body: "Team experience in carbon and metallurgical fuels.", icon: "M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" },
   { title: "Specification-Focused", body: "Products matched to your requirements and application.", icon: ICONS.shield },
@@ -59,11 +54,6 @@ const PORTFOLIO = [
   { name: "Coconut Shell Activated Carbon", slug: "activated-charcoal", use: "Presented with its own technical data, not as another charcoal shape.", technical: true },
 ];
 
-/* Portfolio grid placement per breakpoint:
- *  < sm   horizontal swipe carousel (snap)
- *  sm     2 columns, last card centred (no orphan)
- *  lg     3 + 2 centred (6-col grid, each card spans 2)
- *  xl     5 across                                              */
 const PORTFOLIO_POS = [
   "",
   "",
@@ -86,7 +76,7 @@ const WHY = [
 const FEATURED = [
   {
     name: "Shisha / Hookah Charcoal Cubes",
-    slug: "hookah-cubes",
+    slug: "hookah-shisha",
     tag: "Shisha",
     body: "Cube formats for shisha brands, distributors and wholesale buyers.",
     confirm: ["Cube size and specification", "Pack format for your brand"],

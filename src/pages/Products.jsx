@@ -48,11 +48,12 @@ const LOCAL_IMAGES = Object.fromEntries(
 );
 
 // Old short homepage names also work as file names.
-const FILE_ALIAS = {
-  "hookah-charcoal-cubes": "hookah-cubes",
-  "hexagonal-charcoal-briquettes": "hex-charcoal",
-  "pillow-charcoal-briquettes": "charcoal-briquette",
-  "coconut-shell-activated-carbon": "activated-charcoal",
+const FILE_ALIASES = {
+  "hookah-charcoal-cubes": ["shisha-cubes"],
+  "hexagonal-charcoal-briquettes": ["hexa-charcoal", "hex-charcoal"],
+  "pillow-charcoal-briquettes": ["charcoal-briquette"],
+  "coconut-shell-activated-carbon": ["activated-charcoal"],
+  "coconut-shell-charcoal": ["coconut-shell-charcoal"],
 };
 
 export const PRODUCT_IMG = {
@@ -64,8 +65,11 @@ export const PRODUCT_IMG = {
   "coconut-shell-charcoal": "https://media.istockphoto.com/id/1397454073/photo/coconut-shell-charcoal-background.jpg?s=612x612&w=0&k=20&c=oIbYXHV_VFGBzVNMh7tfZBVPvGnSPDbTq2J7epHpc9Y=",
 };
 
-export const imageFor = (p) =>
-  LOCAL_IMAGES[p.slug] || LOCAL_IMAGES[FILE_ALIAS[p.slug]] || PRODUCT_IMG[p.slug] || p.image || null;
+export const imageFor = (p) => {
+  const names = [p.slug, ...(FILE_ALIASES[p.slug] ?? [])];
+  const local = names.map((n) => LOCAL_IMAGES[n]).find(Boolean);
+  return local || PRODUCT_IMG[p.slug] || p.image || null;
+};
 
 export function ProductPhoto({ product, className = "", imgClass = "", eager = false }) {
   const [failed, setFailed] = useState(false);

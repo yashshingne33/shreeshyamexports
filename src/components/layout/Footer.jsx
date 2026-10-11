@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import logoImg from "../../assets/logo.png";
 import { COMPANY, NAV_PRODUCTS, NAV_COMPANY } from "../../data/site.js";
 import { ContactLines } from "../ui.jsx";
+import { GRID_BG } from "../PageKit.jsx";
 
 /* ------------------------------------------------------------------ *
  * LINKS — the footer carries every page (per the developer plan).
