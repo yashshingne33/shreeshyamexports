@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import logoImg from "../../assets/logo-bg.png";
+import logoImg from "../../assets/logo.png";
 import { COMPANY, NAV_PRODUCTS, NAV_COMPANY } from "../../data/site.js";
 import { ContactLines } from "../ui.jsx";
 
