@@ -6,6 +6,8 @@ import {
   PhotoBanner, TrustStrip, SectionHeader, ClosingCta, Photo, Icon, ICONS, IMAGES, GRID_BG,
   BTN_PRIMARY, BTN_GHOST_DARK,
 } from "../components/PageKit.jsx";
+import cargoShip from "../assets/cargo-ship.jpg";
+
 
 const TRUST = [
   { title: "Terms Per Offer", body: "Trade terms and named port stated in each quotation.", icon: ICONS.doc },
@@ -79,7 +81,7 @@ export default function ExportOrdering() {
           </div>
 
           <aside className="relative overflow-hidden rounded-2xl bg-charcoal text-white shadow-xl lg:sticky lg:top-28 lg:col-span-5">
-            <Photo src={IMAGES.ship} alt="Cargo ship at sea" ratio="aspect-[16/8]" />
+            <Photo src={cargoShip} alt="Cargo ship at sea" ratio="aspect-[16/8]" />
             <span className="block h-0.5 bg-brass" aria-hidden="true" />
             <div className="relative p-7">
               <h3 className="font-serif text-2xl font-bold text-brass">Discuss your destination</h3>

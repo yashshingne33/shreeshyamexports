@@ -78,7 +78,7 @@ export default function Footer() {
           {/* Brand */}
           <div className="sm:col-span-2 lg:col-span-4">
             <Link to="/" className={`inline-flex items-center gap-3 ${FOCUS}`} aria-label={`${COMPANY.name} home`}>
-              <img src={logoImg} alt="" width={30} height={30} className="h-14 w-14 shrink-0 object-contain" />
+              <img src={logoImg} alt="" width={30} height={30} className="h-16 w-16 shrink-0 object-contain" />
               <span className="flex flex-col leading-none">
                 <span className="font-serif text-xl font-bold tracking-tight">{COMPANY.name}</span>
                 <span className="mt-1.5 text-[0.625rem] font-bold uppercase tracking-[0.2em] text-brass">Merchant Exporter</span>

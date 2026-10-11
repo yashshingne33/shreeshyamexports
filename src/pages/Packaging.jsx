@@ -218,7 +218,7 @@
 
 //       <ClosingCta
 //         id="packaging-cta"
-//         image={IMAGES.ship}
+//         image={}
 //         title="Discuss Your Packaging"
 //         body="Tell us the product, market and pack format you have in mind. Pack format and minimum quantity are confirmed with the quotation."
 //       >
