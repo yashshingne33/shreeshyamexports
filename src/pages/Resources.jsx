@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import Breadcrumbs from "../components/Breadcrumbs.jsx";
 import { Seo, WRAP, SECTION, QuoteLink } from "../components/ui.jsx";
 import {
-  PhotoBanner, TrustStrip, SectionHeader, ClosingCta, Photo, ICONS, IMAGES,
+  PageBanner, TrustStrip, SectionHeader, ClosingCta, Photo, Icon, ICONS, IMAGES, GRID_BG,
   BTN_PRIMARY, BTN_GHOST_DARK,
 } from "../components/PageKit.jsx";
 
@@ -25,7 +25,7 @@ export default function Resources() {
     <>
       <Seo title="Resources" description="Catalogue, technical data sheets, safety data sheets and buying guidance for coconut charcoal and activated carbon." />
 
-      <PhotoBanner
+      <PageBanner
         image={IMAGES.paperwork}
         eyebrow="Resources"
         title="Buyer Resources"
@@ -33,7 +33,7 @@ export default function Resources() {
       >
         <QuoteLink className={BTN_PRIMARY}>Request Documents <span aria-hidden="true">&rarr;</span></QuoteLink>
         <Link to="/products/" className={BTN_GHOST_DARK}>View Products</Link>
-      </PhotoBanner>
+      </PageBanner>
 
       <TrustStrip items={TRUST} />
       <Breadcrumbs trail={[{ label: "Resources" }]} />
