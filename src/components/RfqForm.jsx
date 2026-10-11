@@ -4,12 +4,12 @@ import { COMPANY } from "../data/site.js";
 import { PRODUCTS } from "../data/products.js";
 import { BTN_BRASS } from "./ui.jsx";
 
-/* Field names must match the static form in index.html (Netlify Forms detection). */
+/* Submissions are sent as JSON to the Google Apps Script web app (VITE_RFQ_ENDPOINT). */
 const CARBON = "Coconut shell activated carbon";
 const PRODUCT_OPTIONS = [...PRODUCTS.map((p) => p.formValue), "Not sure"];
 const TERMS = ["FOB", "CFR", "CIF", "Please advise"];
 const COUNTRIES = ["United Arab Emirates", "Saudi Arabia", "Kuwait", "Qatar", "Oman", "Bahrain", "United Kingdom", "Germany", "France", "Netherlands", "Spain", "Italy", "Turkey", "United States", "Canada", "Brazil", "Mexico", "Australia", "South Africa", "Egypt", "Nigeria", "Kenya", "Malaysia", "Indonesia", "Singapore", "Japan", "South Korea", "Other / not listed"];
-const MAX_FILES = 3, MAX_TOTAL_MB = 8; // Netlify Forms accepts 8 MB per submission
+const MAX_FILES = 3, MAX_TOTAL_MB = 8; // total attachment size per enquiry
 const OK_EXT = [".pdf", ".docx", ".xlsx", ".jpg", ".jpeg", ".png"];
 
 const input = "w-full rounded-lg border border-charcoal/25 bg-white px-3.5 py-2.5 text-base text-charcoal focus:border-brass focus:outline-none focus:ring-2 focus:ring-brass/30";
@@ -25,6 +25,14 @@ const blank = {
 };
 
 const newRef = () => `SSE-${new Date().toISOString().slice(2, 10).replace(/-/g, "")}-${Math.random().toString(36).slice(2, 7).toUpperCase()}`;
+
+const toBase64 = (file) =>
+  new Promise((resolve, reject) => {
+    const r = new FileReader();
+    r.onload = () => resolve(String(r.result).split(",")[1]);
+    r.onerror = reject;
+    r.readAsDataURL(file);
+  });
 
 function Field({ id, label, required, error, hint, children }) {
   return (
@@ -89,24 +97,32 @@ export default function RfqForm({ prefill, sourcePage = "request-a-quote" }) {
     if (first) { document.getElementById(first === "files" ? "attachments" : first)?.focus(); return; }
 
     setStatus("submitting");
-    const fd = new FormData();
-    fd.append("form-name", "export-enquiry");
-    fd.append("bot-field", f["bot-field"]);
-    fd.append("reference", reference.current);
-    fd.append("source_page", sourcePage);
-    fd.append("enquiry_type", enquiryType);
-    fd.append("products", f.products.join(", "));
-    fd.append("quantity", f.qtyUnsure ? "Not sure" : `${f.qty} ${f.unit}`);
+    const payload = {
+      reference: reference.current,
+      bot_field: f["bot-field"],
+      source_page: sourcePage,
+      enquiry_type: enquiryType,
+      products: f.products.join(", "),
+      quantity: f.qtyUnsure ? "Not sure" : `${f.qty} ${f.unit}`,
+      consent: f.consent ? "yes" : "no",
+      marketing_consent: f.marketing_consent ? "yes" : "no",
+    };
     ["name", "company", "email", "phone", "country", "destination_port", "frequency", "shipment_window", "trade_term", "packaging", "message",
       "fuel_shape_dimensions", "fuel_ash_moisture", "fuel_use", "carbon_form", "carbon_mesh", "carbon_application", "carbon_iodine_bet", "carbon_certification"]
-      .forEach((k) => fd.append(k, f[k]));
-    fd.append("consent", f.consent ? "yes" : "no");
-    fd.append("marketing_consent", f.marketing_consent ? "yes" : "no");
-    files.forEach((file, i) => fd.append(`attachment_${i + 1}`, file));
+      .forEach((k) => { payload[k] = f[k]; });
 
     try {
-      const res = await fetch("/", { method: "POST", body: fd });
+      payload.attachments = await Promise.all(
+        files.map(async (file) => ({ name: file.name, type: file.type, data: await toBase64(file) }))
+      );
+      const res = await fetch(import.meta.env.VITE_RFQ_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "text/plain;charset=utf-8" }, // simple request: avoids a CORS preflight that Apps Script cannot answer
+        body: JSON.stringify(payload),
+      });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const out = await res.json();
+      if (!out.ok) throw new Error(out.error || "Submission failed");
       navigate("/thank-you/", { state: { reference: reference.current, name: f.name, products: f.products } });
     } catch {
       setStatus("failed"); // data is kept in state; nothing is lost and no success is shown

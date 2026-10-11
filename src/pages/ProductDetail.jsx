@@ -4,18 +4,17 @@ import Breadcrumbs from "../components/Breadcrumbs.jsx";
 import FaqAccordion from "../components/FaqAccordion.jsx";
 import { Seo, WRAP, SECTION, CARD, QuoteLink } from "../components/ui.jsx";
 import { ProductPhoto } from "./Products.jsx";
+import { UspBar, NaturalSeal, GreenBand, ApplicationTiles } from "../components/ProductHighlights.jsx";
 
 /* ------------------------------------------------------------------ *
  * SHARED STYLES (same tokens as the homepage hero, header and footer)
  * ------------------------------------------------------------------ */
-const EDGE = "w-full px-6 sm:px-10 lg:px-16 xl:px-24";
+const EDGE = "w-full px-5 sm:px-10 lg:px-16 xl:px-24";
 const FOCUS = "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brass";
 const BTN_PRIMARY =
   "inline-flex items-center justify-center gap-2 rounded-md bg-brass px-6 py-3 text-sm font-bold text-charcoal shadow-sm transition-colors hover:bg-[#9a7e4b] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-charcoal";
 const BTN_GHOST_LIGHT =
   "inline-flex items-center justify-center gap-2 rounded-md border border-charcoal/25 bg-white/60 px-6 py-3 text-sm font-medium text-charcoal transition-colors hover:border-charcoal " + FOCUS;
-const BTN_GHOST_DARK =
-  "inline-flex items-center justify-center gap-2 rounded-md border border-white/40 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white";
 const TEXT_LINK = `text-sm font-bold text-brass underline decoration-2 underline-offset-4 transition-colors hover:text-charcoal ${FOCUS}`;
 
 const FACTS = [
@@ -34,11 +33,11 @@ function SectionHeader({ eyebrow, title, sub, id, className = "" }) {
   return (
     <div className={`max-w-3xl ${className}`}>
       <div className="flex items-center gap-3">
-        <span className="h-px w-10 bg-brass" aria-hidden="true" />
+        <span className="h-px w-10 shrink-0 bg-brass" aria-hidden="true" />
         <span className="text-xs font-bold uppercase tracking-widest text-brass">{eyebrow}</span>
       </div>
-      <h2 id={id} className="mt-3 font-serif text-3xl font-bold leading-tight text-charcoal sm:text-4xl">{title}</h2>
-      {sub && <p className="mt-4 text-lg leading-relaxed text-slate">{sub}</p>}
+      <h2 id={id} className="mt-3 font-serif text-2xl font-bold leading-tight text-charcoal sm:text-3xl lg:text-4xl">{title}</h2>
+      {sub && <p className="mt-4 text-base leading-relaxed text-slate sm:text-lg">{sub}</p>}
     </div>
   );
 }
@@ -58,12 +57,14 @@ export default function ProductDetail() {
       <Seo title={p.name} description={p.intro.slice(0, 155)} />
       <Breadcrumbs trail={[{ label: "Products", to: "/products/" }, { label: p.shortName }]} />
 
-      {/* Hero + quick facts: light, same look as the homepage hero */}
-      <section className="flex flex-col bg-ivory lg:h-[calc(100svh-11rem)] lg:min-h-[600px]" aria-labelledby="product-title">
-        <div className={`${EDGE} grid flex-1 items-center gap-8 py-10 lg:grid-cols-2 lg:gap-14 lg:py-6`}>
-          <div className="order-2 lg:order-1">
+      {/* ============================ HERO ============================ */}
+      {/* min-height (not fixed) so the USP badges can never overflow on short screens */}
+      <section className="flex flex-col bg-ivory lg:min-h-[max(600px,calc(100svh-11rem))]" aria-labelledby="product-title">
+        <div className={`${EDGE} grid flex-1 items-center gap-8 py-8 sm:py-10 lg:grid-cols-2 lg:gap-12 lg:py-10 xl:gap-16`}>
+          {/* Text column (below the image on mobile) */}
+          <div className="order-2 min-w-0 lg:order-1">
             <div className="flex items-center gap-3">
-              <span className="h-px w-10 bg-brass" aria-hidden="true" />
+              <span className="h-px w-10 shrink-0 bg-brass" aria-hidden="true" />
               <span className="text-xs font-bold uppercase tracking-widest text-brass">{p.tag}</span>
             </div>
             <h1 id="product-title" className="mt-4 font-serif text-3xl font-bold leading-[1.1] text-charcoal sm:text-4xl xl:text-5xl [@media(max-height:820px)]:xl:text-4xl">
@@ -71,36 +72,38 @@ export default function ProductDetail() {
             </h1>
             <p className="mt-4 max-w-xl text-[0.95rem] leading-relaxed text-slate sm:text-base">{p.intro}</p>
 
-            {p.applications?.length > 0 && (
-              <ul className="mt-5 flex flex-wrap gap-2" aria-label="Applications">
-                {p.applications.map((a) => (
-                  <li key={a} className="rounded-full border border-brass/50 bg-white px-3.5 py-1.5 text-xs font-semibold text-charcoal">{a}</li>
-                ))}
-              </ul>
-            )}
+            <UspBar product={p} />
 
             <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:gap-4">
-              <QuoteLink product={p.slug} className={`${BTN_PRIMARY} px-7 py-3.5`}>Request this Product <span aria-hidden="true">&rarr;</span></QuoteLink>
+              <QuoteLink product={p.slug} className={`${BTN_PRIMARY} w-full px-7 py-3.5 sm:w-auto`}>
+                Request this Product <span aria-hidden="true">&rarr;</span>
+              </QuoteLink>
               {spec?.tdsUrl ? (
-                <a href={spec.tdsUrl} download className={`${BTN_GHOST_LIGHT} px-7 py-3.5`}>Download TDS</a>
+                <a href={spec.tdsUrl} download className={`${BTN_GHOST_LIGHT} w-full px-7 py-3.5 sm:w-auto`}>Download TDS</a>
               ) : (
-                <QuoteLink product={p.slug} className={`${BTN_GHOST_LIGHT} px-7 py-3.5`}>Request Grade Details</QuoteLink>
+                <QuoteLink product={p.slug} className={`${BTN_GHOST_LIGHT} w-full px-7 py-3.5 sm:w-auto`}>Request Grade Details</QuoteLink>
               )}
             </div>
           </div>
 
-          <div className="order-1 lg:order-2">
-            <div className="overflow-hidden rounded-2xl border border-charcoal/10 bg-white shadow-xl">
-              <ProductPhoto product={p} eager className="aspect-[16/10] lg:aspect-auto lg:h-[clamp(280px,48vh,440px)]" />
+          {/* Image column */}
+          <div className="order-1 min-w-0 lg:order-2">
+            <div className="relative overflow-hidden rounded-2xl border border-charcoal/10 bg-white shadow-xl">
+              <ProductPhoto
+                product={p}
+                eager
+                className="aspect-[4/3] sm:aspect-[16/10] lg:aspect-auto lg:h-[clamp(300px,50vh,460px)]"
+              />
+              <NaturalSeal />
             </div>
           </div>
         </div>
 
-        {/* Quick facts strip, same as the homepage */}
+        {/* Quick facts strip */}
         <div className="border-t-2 border-brass bg-ivory text-charcoal">
-          <ul className={`${EDGE} grid sm:grid-cols-3 sm:divide-x sm:divide-charcoal/10`}>
+          <ul className={`${EDGE} grid divide-y divide-charcoal/10 sm:grid-cols-3 sm:divide-x sm:divide-y-0`}>
             {FACTS.map((f, i) => (
-              <li key={f.title} className={`flex items-center gap-4 py-4 ${i > 0 ? "sm:pl-8" : ""} ${i < FACTS.length - 1 ? "sm:pr-8" : ""}`}>
+              <li key={f.title} className={`flex items-center gap-4 py-4 ${i > 0 ? "sm:pl-6 lg:pl-8" : ""} ${i < FACTS.length - 1 ? "sm:pr-6 lg:pr-8" : ""}`}>
                 <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-brass/60 bg-white text-brass shadow-sm">
                   <Icon d={f.icon} className="h-6 w-6" />
                 </span>
@@ -114,7 +117,10 @@ export default function ProductDetail() {
         </div>
       </section>
 
-      {/* Technical specification */}
+      {/* ========================= GO GREEN BAND ========================= */}
+      <GreenBand product={p} />
+
+      {/* ====================== TECHNICAL SPECIFICATION ====================== */}
       <section id="specifications" className={`${SECTION} scroll-mt-24 bg-white`} aria-labelledby="spec-title">
         <div className={WRAP}>
           <SectionHeader
@@ -126,16 +132,31 @@ export default function ProductDetail() {
 
           {spec ? (
             <>
-              <div className="mt-6 flex flex-wrap items-center gap-3">
+              <div className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-3">
                 <span className="rounded-full border border-brass/50 bg-brass/10 px-4 py-1.5 text-sm font-bold text-charcoal">Grade {spec.grade}</span>
                 <span className="text-sm font-medium text-slate">Revised {spec.revised}</span>
                 {spec.tdsUrl && (
-                  <a href={spec.tdsUrl} download className={`ml-auto ${TEXT_LINK}`}>Download TDS</a>
+                  <a href={spec.tdsUrl} download className={`sm:ml-auto ${TEXT_LINK}`}>Download TDS</a>
                 )}
               </div>
 
-              <div className="mt-5 overflow-x-auto rounded-2xl border border-charcoal/10 bg-white shadow-sm" tabIndex={0} role="region" aria-label="Technical specification table">
-                <table className="w-full min-w-[600px] text-left text-sm">
+              {/* Mobile: stacked cards, no sideways scrolling */}
+              <ul className="mt-5 space-y-3 md:hidden" aria-label="Technical specification">
+                {spec.rows.map((r) => (
+                  <li key={r.parameter} className="rounded-xl border border-charcoal/10 border-l-4 border-l-brass bg-ivory/60 p-4">
+                    <p className="font-serif text-base font-bold text-charcoal">{r.parameter}</p>
+                    <p className="mt-1 text-sm font-semibold text-charcoal">{r.value}</p>
+                    <p className="mt-2 text-xs leading-relaxed text-slate">
+                      {r.unit}
+                      {r.method ? <span className="block">Method: {r.method}</span> : null}
+                    </p>
+                  </li>
+                ))}
+              </ul>
+
+              {/* Tablet and up: full table */}
+              <div className="mt-5 hidden overflow-x-auto rounded-2xl border border-charcoal/10 bg-white shadow-sm md:block" tabIndex={0} role="region" aria-label="Technical specification table">
+                <table className="w-full min-w-[640px] text-left text-sm">
                   <thead className="border-b-2 border-brass bg-ivory text-xs font-bold uppercase tracking-wide text-charcoal">
                     <tr>
                       <th scope="col" className="px-5 py-4">Parameter</th>
@@ -170,57 +191,62 @@ export default function ProductDetail() {
               {p.note && (
                 <p className="mt-6 max-w-3xl rounded-xl border border-charcoal/10 bg-ivory p-5 text-sm leading-relaxed text-slate">{p.note}</p>
               )}
-              <QuoteLink product={p.slug} className={`${BTN_PRIMARY} mt-8`}>Request Grade Details <span aria-hidden="true">&rarr;</span></QuoteLink>
+              <QuoteLink product={p.slug} className={`${BTN_PRIMARY} mt-8 w-full sm:w-auto`}>
+                Request Grade Details <span aria-hidden="true">&rarr;</span>
+              </QuoteLink>
             </>
           )}
 
           {p.dimensionImage && (
             <figure className="mt-10 max-w-3xl overflow-hidden rounded-2xl border border-charcoal/10 bg-white shadow-sm">
-              <img src={p.dimensionImage} alt={`${p.shortName} dimensions`} loading="lazy" decoding="async" className="w-full" />
+              <img src={p.dimensionImage} alt={`${p.shortName} dimensions`} loading="lazy" decoding="async" className="h-auto w-full" />
               <figcaption className="border-t border-charcoal/10 bg-ivory px-5 py-3 text-xs text-slate">Dimensional reference for {p.shortName}</figcaption>
             </figure>
           )}
         </div>
       </section>
 
-      {/* Packaging + documents */}
-      <section className={`${SECTION} bg-ivory`} aria-labelledby="commercial-title">
+      {/* ========================== APPLICATIONS ========================== */}
+      <ApplicationTiles product={p} />
+
+      {/* ====================== PACKAGING + DOCUMENTS ====================== */}
+      <section className={`${SECTION} bg-white`} aria-labelledby="commercial-title">
         <div className={WRAP}>
           <SectionHeader eyebrow="Commercial Details" title="Packaging and Documents" id="commercial-title" />
-          <div className="mt-10 grid gap-6 lg:grid-cols-2">
+          <div className="mt-8 grid gap-5 sm:mt-10 sm:gap-6 lg:grid-cols-2">
             {[
               { icon: FACTS[1].icon, title: "Packaging and Commercial Details", to: "/packaging-private-label/", link: "Packaging and private label",
                 text: "Bulk, retail and private-label packing can be discussed for this product. Pack format, MOQ and production lead time are confirmed with the quotation. Lead time is separate from ocean transit." },
               { icon: FACTS[0].icon, title: "Documents", to: "/quality/", link: "Quality and documentation",
                 text: "A technical data sheet and safety data sheet are provided for approved grades, and a certificate of analysis states the batch, date, laboratory and methods it covers. Ask for the documents you need." },
             ].map((c) => (
-              <div key={c.title} className="flex flex-col rounded-2xl border border-charcoal/10 bg-white p-7 shadow-sm">
-                <span className="flex h-12 w-12 items-center justify-center rounded-full border border-brass/60 bg-ivory text-brass"><Icon d={c.icon} className="h-6 w-6" /></span>
+              <div key={c.title} className="flex flex-col rounded-2xl border border-charcoal/10 border-t-4 border-t-brass bg-ivory p-6 shadow-sm sm:p-7">
+                <span className="flex h-12 w-12 items-center justify-center rounded-full border border-brass/60 bg-white text-brass"><Icon d={c.icon} className="h-6 w-6" /></span>
                 <h3 className="mt-5 font-serif text-xl font-bold text-charcoal">{c.title}</h3>
                 <p className="mt-3 flex-1 leading-relaxed text-slate">{c.text}</p>
-                <Link to={c.to} className={`mt-5 ${TEXT_LINK}`}>{c.link} <span aria-hidden="true">&rarr;</span></Link>
+                <Link to={c.to} className={`mt-5 self-start ${TEXT_LINK}`}>{c.link} <span aria-hidden="true">&rarr;</span></Link>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* FAQs */}
-      <section className={`${SECTION} bg-white`} aria-labelledby="faq-title">
+      {/* ============================== FAQ ============================== */}
+      <section className={`${SECTION} bg-ivory`} aria-labelledby="faq-title">
         <div className={`${WRAP} max-w-3xl`}>
           <SectionHeader eyebrow="Buyer Questions" title="Product FAQs" id="faq-title" />
           <div className="mt-8"><FaqAccordion items={faqsFor(p)} /></div>
         </div>
       </section>
 
-      {/* Related products */}
-      <section className={`${SECTION} bg-ivory`} aria-labelledby="related-title">
+      {/* ========================= RELATED PRODUCTS ========================= */}
+      <section className={`${SECTION} bg-white`} aria-labelledby="related-title">
         <div className={WRAP}>
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+          <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
             <SectionHeader eyebrow="Explore More" title="Related Products" id="related-title" />
-            <Link to="/products/" className={`${BTN_GHOST_LIGHT} shrink-0`}>View all products</Link>
+            <Link to="/products/" className={`${BTN_GHOST_LIGHT} w-full shrink-0 sm:w-auto`}>View all products</Link>
           </div>
-          <ul className="mt-10 grid gap-6 sm:grid-cols-3">
+          <ul className="mt-8 grid gap-5 sm:mt-10 sm:gap-6 md:grid-cols-3">
             {related.map((r) => (
               <li key={r.slug} className="flex">
                 <Link
@@ -234,7 +260,7 @@ export default function ProductDetail() {
                   </div>
                   <div className="flex flex-1 flex-col p-5">
                     <h3 className="font-serif text-lg font-bold text-charcoal">{r.shortName}</h3>
-                    <span className="mt-4 text-sm font-bold text-brass transition-transform group-hover:translate-x-1 motion-reduce:transform-none">View Specifications <span aria-hidden="true">&rarr;</span></span>
+                    <span className="mt-auto pt-4 text-sm font-bold text-brass transition-transform group-hover:translate-x-1 motion-reduce:transform-none">View Specifications <span aria-hidden="true">&rarr;</span></span>
                   </div>
                 </Link>
               </li>
@@ -243,13 +269,15 @@ export default function ProductDetail() {
         </div>
       </section>
 
-      {/* Closing action, with this product preselected */}
-      <section className="bg-charcoal py-16 text-white lg:py-20" aria-labelledby="product-cta">
+      {/* ============================== CTA ============================== */}
+      <section className="bg-charcoal py-14 text-white sm:py-16 lg:py-20" aria-labelledby="product-cta">
         <div className={WRAP}>
           <div className="mx-auto max-w-2xl text-center">
-            <h2 id="product-cta" className="font-serif text-3xl font-bold leading-tight text-brass sm:text-4xl">Discuss Your {p.shortName} Requirements</h2>
-            <p className="mt-4 text-lg text-white/85">Tell us the quantity, destination and specification. Your selected product stays attached to the enquiry.</p>
-            <QuoteLink product={p.slug} className={`${BTN_PRIMARY} mt-8 px-8 py-3.5`}>Send Your Requirements <span aria-hidden="true">&rarr;</span></QuoteLink>
+            <h2 id="product-cta" className="font-serif text-2xl font-bold leading-tight text-brass sm:text-3xl lg:text-4xl">Discuss Your {p.shortName} Requirements</h2>
+            <p className="mt-4 text-base text-white/85 sm:text-lg">Tell us the quantity, destination and specification. Your selected product stays attached to the enquiry.</p>
+            <QuoteLink product={p.slug} className={`${BTN_PRIMARY} mt-8 w-full px-8 py-3.5 sm:w-auto`}>
+              Send Your Requirements <span aria-hidden="true">&rarr;</span>
+            </QuoteLink>
           </div>
         </div>
       </section>
