@@ -113,7 +113,7 @@ export default function Footer() {
           {/* Contact */}
           <div className="sm:col-span-2 lg:col-span-2">
             <ColumnTitle>Contact</ColumnTitle>
-            <ContactLines className="mt-5 text-ivory/75" />
+            <ContactLines className="mt-5 text-ivory/75 [&_a]:transition-colors [&_a:hover]:text-brass" />
             <Link to="/request-a-quote/" className={`${BTN_QUOTE} mt-6`}>
               Request an Export Quote <span aria-hidden="true">&rarr;</span>
             </Link>

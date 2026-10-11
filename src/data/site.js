@@ -3,7 +3,7 @@
 // blank is hidden by the UI, so no placeholder phone/email/address is ever shown to buyers.
 export const COMPANY = {
   name: "Shri Shyam Exports", // owner to confirm final spelling (Sri / Shri / Shree) and legal name
-  email: "",     // e.g. "export@yourdomain.com" — monitored export mailbox
+  email: "info@shrishyamexim.com",     // e.g. "export@yourdomain.com" — monitored export mailbox
   phone: "",     // e.g. "+91 …" with country code
   whatsapp: "",  // digits only incl. country code, e.g. "91XXXXXXXXXX"
   address: "",   // registered business address, once reconciled
