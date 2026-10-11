@@ -3,7 +3,7 @@ import Breadcrumbs from "../components/Breadcrumbs.jsx";
 import { COMPANY, ORDERING_STEPS } from "../data/site.js";
 import { Seo, WRAP, SECTION, QuoteLink } from "../components/ui.jsx";
 import {
-  PhotoBanner, TrustStrip, SectionHeader, ClosingCta, Photo, Icon, ICONS, IMAGES, GRID_BG,
+  PageBanner, TrustStrip, SectionHeader, ClosingCta, Photo, Icon, ICONS, IMAGES, GRID_BG,
   BTN_PRIMARY, BTN_GHOST_DARK,
 } from "../components/PageKit.jsx";
 import cargoShip from "../assets/cargo-ship.jpg";
@@ -29,15 +29,14 @@ export default function ExportOrdering() {
     <>
       <Seo title="Export Ordering" description={`How an export order works with ${COMPANY.name}, from enquiry to shipment.`} />
 
-      <PhotoBanner
-        image={IMAGES.port}
+      <PageBanner
         eyebrow="Export Ordering"
         title="From Enquiry to Shipment"
         body="From enquiry to shipment. Terms are discussed per offer, not assumed."
       >
         <QuoteLink className={BTN_PRIMARY}>Request an Export Quote <span aria-hidden="true">&rarr;</span></QuoteLink>
         <a href="#terms" className={BTN_GHOST_DARK}>Terms and Documents</a>
-      </PhotoBanner>
+      </PageBanner>
 
       <TrustStrip items={TRUST} />
       <Breadcrumbs trail={[{ label: "Export Ordering" }]} />
