@@ -270,7 +270,7 @@ export default function Products() {
               <span className="h-px w-10 shrink-0 bg-brass" aria-hidden="true" />
               <span className="text-xs font-bold uppercase tracking-widest text-brass">Products</span>
             </div>
-            <h1 id="products-title" className="mt-4 font-serif text-4xl font-bold leading-[1.1] sm:text-5xl lg:text-6xl">
+            <h1 id="products-title" className="mt-4 font-serif text-4xl font-bold leading-[1.1] sm:text-3xl lg:text-5xl">
               Coconut Charcoal <span className="font-medium text-brass">&amp;</span> Activated Carbon
             </h1>
             <p className="mt-5 max-w-xl text-base leading-relaxed text-white/85 sm:text-lg">
