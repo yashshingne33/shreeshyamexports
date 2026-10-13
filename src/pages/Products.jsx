@@ -375,7 +375,7 @@ export default function Products() {
             <div className="max-w-2xl">
               <p className="font-serif text-xl font-bold text-charcoal">Comparing briquette formats?</p>
               <p className="mt-2 text-sm leading-relaxed text-slate">
-                Our briquette guide introduces pillow-shaped, hexagonal and hookah cube formats side by side, so you can choose the right product page.
+                Our briquette guide introduces pillow-shaped, hexagonal and  formats side by side, so you can choose the right product page.
               </p>
             </div>
             <Link to="/products/coconut-charcoal-briquettes/" className={`${BTN_GHOST_LIGHT} w-full shrink-0 sm:w-auto`}>
