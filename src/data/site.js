@@ -11,14 +11,14 @@ export const COMPANY = {
   country: "India",
 };
 
-export const EXPERIENCE_LINE = "Over 25 years of team experience in carbon and metallurgical fuels.";
+export const EXPERIENCE_LINE = "A new name backed by over 25 years of industry experience.";
 
 export const NAV_PRODUCTS = [
-  { label: "Coconut shell carbon", to: "/products/coconut-shell-activated-carbon/" },
-  { label: "Hookah & shisha cubes", to: "/products/hookah-charcoal-cubes/" },
-  { label: "Pillow briquettes", to: "/products/pillow-charcoal-briquettes/" },
-  { label: "Hexagonal briquettes", to: "/products/hexagonal-charcoal-briquettes/" },
-  { label: "Coconut shell charcoal", to: "/products/coconut-shell-charcoal/" },
+  { label: "Coconut Shell Activated Carbon", to: "/products/coconut-shell-activated-carbon/" },
+  { label: "Shisha and Hookah Charcoal Cubes", to: "/products/hookah-charcoal-cubes/" },
+  { label: "Pillow Coconut Charcoal Briquettes", to: "/products/pillow-charcoal-briquettes/" },
+  { label: "Hexagonal Coconut Charcoal Briquettes", to: "/products/hexagonal-charcoal-briquettes/" },
+  { label: "Coconut Shell Charcoal", to: "/products/coconut-shell-charcoal/" },
   { label: "All products", to: "/products/" },
 ];
 

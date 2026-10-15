@@ -2,39 +2,19 @@ import { Link } from "react-router-dom";
 import logoImg from "../../assets/logo.png";
 import { COMPANY, NAV_PRODUCTS, NAV_COMPANY } from "../../data/site.js";
 import { ContactLines } from "../ui.jsx";
-import { GRID_BG } from "../PageKit.jsx";
 
 /* ------------------------------------------------------------------ *
- * LINKS — the footer carries every page (per the developer plan).
+ * LINKS: every list comes from data/site.js so the footer always
+ * matches the header and product names stay consistent.
  * ------------------------------------------------------------------ */
-const PLAN_PRODUCTS = [
-  { label: "Activated Carbon", to: "/products/coconut-shell-activated-carbon/" },
-  { label: "Hookah & Shisha Cubes", to: "/products/hookah-charcoal-cubes/" },
-  { label: "Pillow Briquettes", to: "/products/pillow-charcoal-briquettes/" },
-  { label: "Hexagonal Briquettes", to: "/products/hexagonal-charcoal-briquettes/" },
-];
-const PLAN_COMPANY = [
-  { label: "About Us", to: "/about/" },
-  { label: "Export Ordering", to: "/export-ordering/" },
-  { label: "Resources", to: "/resources/" },
-  { label: "FAQ", to: "/faq/" },
-];
+const PRODUCT_LINKS = [{ label: "All Products", to: "/products/" }, ...NAV_PRODUCTS.filter((l) => l.to !== "/products/")];
+const COMPANY_LINKS = [{ label: "Home", to: "/" }, ...NAV_COMPANY];
 const EXPLORE = [
   { label: "Applications", to: "/applications/" },
   { label: "Quality", to: "/quality/" },
-  { label: "Packaging & Private Label", to: "/packaging-private-label/" },
+  { label: "Packaging", to: "/packaging-private-label/" },
+  { label: "Contact", to: "/contact/" },
   { label: "Request a Quote", to: "/request-a-quote/" },
-];
-
-const merge = (base = [], extra = []) => {
-  const seen = new Set(base.map((l) => l.to));
-  return [...base, ...extra.filter((l) => !seen.has(l.to))];
-};
-
-const PRODUCT_LINKS = [{ label: "All Products", to: "/products/" }, ...merge(NAV_PRODUCTS, PLAN_PRODUCTS).filter((l) => l.to !== "/products/")];
-const COMPANY_LINKS = [
-  { label: "Home", to: "/" },
-  ...merge(NAV_COMPANY, PLAN_COMPANY),
 ];
 
 /* ------------------------------------------------------------------ *
@@ -79,7 +59,7 @@ export default function Footer() {
       <div className={`${EDGE} pb-6 pt-10 sm:pb-8 sm:pt-12 lg:pt-16`}>
         <div className="grid grid-cols-2 gap-x-6 gap-y-9 sm:grid-cols-3 sm:gap-x-8 sm:gap-y-10 lg:grid-cols-12 lg:gap-8">
           {/* Brand */}
-          <div className="col-span-2 sm:col-span-3 lg:col-span-4">
+          <div className="col-span-2 sm:col-span-3 lg:col-span-3">
             <Link to="/" className={`inline-flex items-center gap-3 ${FOCUS}`} aria-label={`${COMPANY.name} home`}>
               <img src={logoImg} alt="" width={30} height={30} className="h-12 w-12 shrink-0 object-contain sm:h-16 sm:w-16" />
               <span className="flex flex-col leading-none">
@@ -87,15 +67,15 @@ export default function Footer() {
               </span>
             </Link>
             <p className="mt-4 max-w-md text-sm leading-relaxed text-ivory/75 sm:mt-5 sm:max-w-lg lg:max-w-sm">
-              India-based exporter of coconut charcoal products and coconut shell activated carbon for international buyers.
+              India-based merchant exporter of coconut charcoal products and coconut shell activated carbon for international buyers.
             </p>
             <p className="mt-3 max-w-md border-l-2 border-brass pl-4 text-sm leading-relaxed text-ivory/70 sm:mt-4 sm:max-w-lg lg:max-w-sm">
-              A new export company. Over 25 years of team industry experience.
+              A new name backed by over 25 years of industry experience
             </p>
           </div>
 
-          {/* Products */}
-          <nav aria-label="Products" className="col-span-1 lg:col-span-2">
+          {/* Products (wider column: the full product names need the room) */}
+          <nav aria-label="Products" className="col-span-2 sm:col-span-1 lg:col-span-3">
             <ColumnTitle>Products</ColumnTitle>
             <LinkList links={PRODUCT_LINKS} />
           </nav>
@@ -107,9 +87,9 @@ export default function Footer() {
           </nav>
 
           {/* Company */}
-          <nav aria-label="Company" className="col-span-2 sm:col-span-1 lg:col-span-2">
+          <nav aria-label="Company" className="col-span-1 lg:col-span-2">
             <ColumnTitle>Company</ColumnTitle>
-            <LinkList links={COMPANY_LINKS} twoColMobile />
+            <LinkList links={COMPANY_LINKS} />
           </nav>
 
           {/* Contact */}
@@ -118,7 +98,7 @@ export default function Footer() {
             <div className="mt-4 flex flex-col gap-5 sm:mt-5 sm:flex-row sm:items-start sm:justify-between sm:gap-8 lg:flex-col lg:justify-start lg:gap-0">
               <ContactLines className="min-w-0 break-words text-ivory/75 [overflow-wrap:anywhere] [&_a]:transition-colors [&_a:hover]:text-brass" />
               <Link to="/request-a-quote/" className={`${BTN_QUOTE} sm:shrink-0 lg:mt-6`}>
-                Request an Export Quote <span aria-hidden="true">&rarr;</span>
+                Request a Quote <span aria-hidden="true">&rarr;</span>
               </Link>
             </div>
           </div>
