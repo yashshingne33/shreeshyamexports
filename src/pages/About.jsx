@@ -1,18 +1,20 @@
 import { Link } from "react-router-dom";
 import Breadcrumbs from "../components/Breadcrumbs.jsx";
 import { COMPANY } from "../data/site.js";
-import { Seo, WRAP, SECTION, QuoteLink } from "../components/ui.jsx";
+import { Seo, WRAP, SECTION } from "../components/ui.jsx";
 import {
-  PhotoBanner, TrustStrip, SectionHeader, ClosingCta, Photo, Icon, ICONS, IMAGES, GRID_BG,
+  PhotoBanner, TrustStrip, SectionHeader, ClosingCta, Photo, Icon, ICONS, IMAGES,
   BTN_PRIMARY, BTN_GHOST_DARK,
 } from "../components/PageKit.jsx";
 
-const BLOCKS = [
-  ["Our expertise", "Over the past two and a half decades, our team has developed a practical understanding of how product quality, sourcing decisions and customer requirements shape reliable supply. Our background in charcoal, Met Coke and LAM Coke helps us ask the right questions, assess requirements carefully and understand what customers expect from their suppliers.", ICONS.flask],
-  ["Why we started", `We established ${COMPANY.name} to build a trusted and respected organisation guided by integrity, transparency, quality, commitment and long-term relationships. These values shape how we work with customers, suppliers and business partners.`, ICONS.shield],
-  ["Our approach", "We believe dependable business relationships are built through clear expectations, consistent communication and responsible follow-through. As a merchant exporter, we work to understand each buyer's requirements and coordinate sourcing, specification review, packaging and export arrangements for the agreed supply.", ICONS.clipboard],
-  ["Looking ahead", `${COMPANY.name} is a new name carrying established industry knowledge and relationships into a new chapter. We aim to create lasting value for international customers and supply partners through professional conduct, dependable service and partnerships that grow over time.`, ICONS.globe],
-];
+/* ------------------------------------------------------------------ *
+ * LEADERSHIP (Section 7)
+ * Hidden until the business supplies an approved name, role, biography
+ * and a genuine image with permission. Fill all four fields to publish:
+ *   const LEADERSHIP = { name: "...", role: "...", bio: "...", image: importedImage };
+ * Do not invent names or former employers.
+ * ------------------------------------------------------------------ */
+const LEADERSHIP = null;
 
 const VALUES = ["Integrity", "Transparency", "Quality", "Commitment", "Long-term relationships"];
 
@@ -23,16 +25,23 @@ const TRUST = [
   { title: "Long-Term Commitment", body: "Partnerships that grow over time.", icon: ICONS.shield },
 ];
 
+const BANNER_IMAGE = IMAGES.logistics ?? IMAGES.hero;
+
 export default function About() {
+  const leader = LEADERSHIP && LEADERSHIP.name && LEADERSHIP.role && LEADERSHIP.bio ? LEADERSHIP : null;
+
   return (
     <>
-      <Seo title="About" description={`${COMPANY.name} is a new merchant export company backed by a team with over 25 years of experience in charcoal, Met Coke and LAM Coke.`} />
+      <Seo
+        title="About"
+        description={`${COMPANY.name} is an India-based merchant exporter of coconut charcoal products and coconut shell activated carbon, backed by a team with over 25 years of industry experience.`}
+      />
 
       <PhotoBanner
-        image={IMAGES.logistics}
+        image={BANNER_IMAGE}
         eyebrow="About Us"
         title="A new name backed by over 25 years of industry experience"
-        body={`${COMPANY.name} is a new merchant export company built on an experienced foundation. Our team brings more than 25 years of experience in the carbon and metallurgical fuel industry, with practical knowledge of charcoal, metallurgical coke (Met Coke) and low ash metallurgical coke (LAM Coke).`}
+        body={`${COMPANY.name} is an India-based merchant exporter of coconut charcoal products and coconut shell activated carbon. Our team brings more than 25 years of experience in the carbon and metallurgical fuel industry, including charcoal, Met Coke and LAM Coke.`}
         aside={
           <div className="text-center">
             <p className="font-serif text-6xl font-bold text-brass">25+</p>
@@ -46,27 +55,36 @@ export default function About() {
           </div>
         }
       >
-        <QuoteLink className={BTN_PRIMARY}>Speak to Our Export Team <span aria-hidden="true">&rarr;</span></QuoteLink>
+        <Link to="/contact/" className={BTN_PRIMARY}>Contact Our Export Team <span aria-hidden="true">&rarr;</span></Link>
         <Link to="/quality/" className={BTN_GHOST_DARK}>How We Work</Link>
       </PhotoBanner>
 
       <TrustStrip items={TRUST} />
       <Breadcrumbs trail={[{ label: "About" }]} />
 
-      {/* Today */}
+      {/* Introduction and approach (replaces the four repeated story blocks) */}
       <section className={`${SECTION} bg-white`} aria-labelledby="today-title">
         <div className={`${WRAP} grid items-center gap-14 lg:grid-cols-12 lg:gap-16`}>
           <div className="relative lg:col-span-5">
-            <Photo src="https://media.istockphoto.com/id/1163589059/photo/about-us.webp?a=1&b=1&s=612x612&w=0&k=20&c=5RYjVfid3BgQisNqoRk6Sskr8tHK5lRKfOCscPOvEBE=" alt="Export shipping at a container port" ratio="aspect-[4/5]" className="rounded-2xl border border-charcoal/10 shadow-xl" />
+            <Photo
+              src="https://media.istockphoto.com/id/1163589059/photo/about-us.webp?a=1&b=1&s=612x612&w=0&k=20&c=5RYjVfid3BgQisNqoRk6Sskr8tHK5lRKfOCscPOvEBE="
+              alt="Export shipping at a container port"
+              ratio="aspect-[4/5]"
+              className="rounded-2xl border border-charcoal/10 shadow-xl"
+            />
             <div className="absolute -bottom-6 right-4 rounded-xl border-l-4 border-brass bg-charcoal px-5 py-4 text-white shadow-2xl sm:right-8">
-              <p className="font-serif text-lg font-bold">Established experience</p>
-              <p className="text-xs text-white/75">A new export company</p>
+              <p className="font-serif text-lg font-bold">Experienced team</p>
+              <p className="text-xs text-white/75">A new export business</p>
             </div>
           </div>
+
           <div className="mt-6 lg:col-span-7 lg:mt-0">
-            <SectionHeader eyebrow="Today" title="Experience, Applied to Export" id="today-title" />
+            <SectionHeader eyebrow="How We Work" title="Experience, Applied to Export" id="today-title" />
             <p className="mt-5 text-lg leading-relaxed text-slate">
-              Today, we bring that experience to an export-focused business offering coconut charcoal products and coconut shell activated carbon to international buyers. Our approach combines an understanding of product quality, sourcing and market requirements with a commitment to clear communication and dependable service.
+              We bring this experience to product sourcing, specification review, supplier coordination and export arrangements. We work with buyers to define the required grade, packaging and commercial terms before confirming supply.
+            </p>
+            <p className="mt-4 text-lg leading-relaxed text-slate">
+              Our approach is guided by integrity, transparency, quality, commitment and long-term relationships. We aim to build dependable trading relationships through clear communication and consistent follow-through.
             </p>
             <p className="mt-8 text-xs font-bold uppercase tracking-widest text-charcoal">What guides us</p>
             <ul className="mt-3 flex flex-wrap gap-3">
@@ -80,29 +98,25 @@ export default function About() {
         </div>
       </section>
 
-      {/* Four blocks on dark */}
-      <section className="relative overflow-hidden bg-charcoal py-20 text-white lg:py-24" aria-labelledby="story-title">
-        <div className="pointer-events-none absolute inset-0" style={GRID_BG} aria-hidden="true" />
-        <div className={`relative z-10 ${WRAP}`}>
-          <div className="mx-auto max-w-3xl text-center">
-            <span className="text-xs font-bold uppercase tracking-widest text-brass">Our Story</span>
-            <h2 id="story-title" className="mt-3 font-serif text-3xl font-bold leading-tight sm:text-4xl">Expertise, Purpose, Approach and Direction</h2>
+      {/* Leadership: appears only when an approved biography is supplied */}
+      {leader && (
+        <section className={`${SECTION} bg-ivory`} aria-labelledby="leadership-title">
+          <div className={`${WRAP} grid items-center gap-10 lg:grid-cols-12 lg:gap-16`}>
+            {leader.image && (
+              <div className="mx-auto w-full max-w-sm lg:col-span-4 lg:max-w-none">
+                <Photo src={leader.image} alt={leader.name} ratio="aspect-[4/5]" className="rounded-2xl border border-charcoal/10 shadow-xl" />
+              </div>
+            )}
+            <div className={leader.image ? "lg:col-span-8" : "lg:col-span-12"}>
+              <SectionHeader eyebrow="Leadership" title={`${leader.name}, ${leader.role}`} id="leadership-title" />
+              <p className="mt-5 max-w-3xl text-lg leading-relaxed text-slate">{leader.bio}</p>
+            </div>
           </div>
-          <ul className="mt-12 grid gap-6 md:grid-cols-2">
-            {BLOCKS.map(([t, d, icon], i) => (
-              <li key={t} className="relative overflow-hidden rounded-2xl border border-white/15 bg-white/5 p-7 backdrop-blur-sm sm:p-8">
-                <span className="pointer-events-none absolute -right-2 -top-4 select-none font-serif text-8xl font-bold text-white/[0.06]" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
-                <span className="flex h-12 w-12 items-center justify-center rounded-full border border-brass/70 text-brass"><Icon d={icon} className="h-6 w-6" /></span>
-                <h3 className="mt-5 font-serif text-2xl font-bold text-brass">{t}</h3>
-                <p className="mt-3 leading-relaxed text-white/80">{d}</p>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
+        </section>
+      )}
 
-      <ClosingCta id="about-cta" image={IMAGES.ship} title="Our experience is established. Our name is new. Our commitment is long-term.">
-        <QuoteLink className={`${BTN_PRIMARY} px-8 py-3.5`}>Speak to Our Export Team <span aria-hidden="true">&rarr;</span></QuoteLink>
+      <ClosingCta id="about-cta" image={IMAGES.ship} title="Experienced team. New export business. Long-term commitment.">
+        <Link to="/contact/" className={`${BTN_PRIMARY} px-8 py-3.5`}>Contact Our Export Team <span aria-hidden="true">&rarr;</span></Link>
         <Link to="/products/" className={`${BTN_GHOST_DARK} px-8 py-3.5`}>View Products</Link>
       </ClosingCta>
     </>
