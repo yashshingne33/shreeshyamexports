@@ -2,13 +2,43 @@
   command = "npm run build"
   publish = "dist"
 
-# Client-side routing: every path serves the app (fixes 404 on refresh / deep links).
-# Netlify Forms POSTs are handled before redirects, so the enquiry form is unaffected.
+# ------------------------------------------------------------------
+# Permanent redirects: old product addresses -> canonical detail pages.
+# These MUST stay above the "/*" fallback, because Netlify applies the
+# first matching rule.
+# ------------------------------------------------------------------
+[[redirects]]
+  from = "/products/shisha-cubes"
+  to = "/products/hookah-charcoal-cubes/"
+  status = 301
+
+[[redirects]]
+  from = "/products/hookah-shisha"
+  to = "/products/hookah-charcoal-cubes/"
+  status = 301
+
+[[redirects]]
+  from = "/products/hexa-charcoal"
+  to = "/products/hexagonal-charcoal-briquettes/"
+  status = 301
+
+[[redirects]]
+  from = "/products/charcoal-briquette"
+  to = "/products/pillow-charcoal-briquettes/"
+  status = 301
+
+[[redirects]]
+  from = "/products/activated-charcoal"
+  to = "/products/coconut-shell-activated-carbon/"
+  status = 301
+
 [[redirects]]
   from = "/guides/"
   to = "/resources/"
   status = 301
 
+# Client-side routing: every other path serves the app (fixes 404 on refresh / deep links).
+# Netlify Forms POSTs are handled before redirects, so the enquiry form is unaffected.
 [[redirects]]
   from = "/*"
   to = "/index.html"
