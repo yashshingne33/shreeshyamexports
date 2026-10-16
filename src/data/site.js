@@ -13,21 +13,22 @@ export const COMPANY = {
 
 export const EXPERIENCE_LINE = "A new name backed by over 25 years of industry experience.";
 
-export const NAV_PRODUCTS = [
-  { label: "Coconut Shell Activated Carbon", to: "/products/coconut-shell-activated-carbon/" },
-  { label: "Shisha and Hookah Charcoal Cubes", to: "/products/hookah-charcoal-cubes/" },
-  { label: "Pillow Coconut Charcoal Briquettes", to: "/products/pillow-charcoal-briquettes/" },
-  { label: "Hexagonal Coconut Charcoal Briquettes", to: "/products/hexagonal-charcoal-briquettes/" },
-  { label: "Coconut Shell Charcoal", to: "/products/coconut-shell-charcoal/" },
-  { label: "All products", to: "/products/" },
-];
 
-export const NAV_COMPANY = [
-  { label: "About", to: "/about/" },
-  { label: "Export ordering", to: "/export-ordering/" },
-  { label: "Resources", to: "/resources/" },
-  { label: "FAQ", to: "/faq/" },
-];
+   export const NAV_PRODUCTS = [
+     { label: "Coconut Shell Charcoal", to: "/products/coconut-shell-charcoal/" },
+     { label: "Hookah and Shisha Charcoal Cubes", to: "/products/hookah-charcoal-cubes/" },
+     { label: "Hexagonal Coconut Charcoal Briquettes", to: "/products/hexagonal-charcoal-briquettes/" },
+     { label: "Pillow Coconut Charcoal Briquettes", to: "/products/pillow-charcoal-briquettes/" },
+     { label: "Coconut Shell Activated Carbon", to: "/products/coconut-shell-activated-carbon/" },
+     { label: "All Products", to: "/products/" },
+   ];
+
+   export const NAV_COMPANY = [
+     { label: "About", to: "/about/" },
+     { label: "Export Ordering", to: "/export-ordering/" },
+     { label: "Resources", to: "/resources/" },
+     { label: "FAQ", to: "/faq/" },
+   ];   
 
 export const ORDERING_STEPS = [
   { n: "01", title: "Share requirements", body: "Tell us the product, application, quantity and destination. Add your technical specification if you have one." },

@@ -54,8 +54,8 @@ export default function App() {
           <Route path="/terms/" element={<Terms />} />
           <Route path="/thank-you/" element={<ThankYou />} />
           <Route path="/guides/" element={<Navigate to="/resources/" replace />} />
-          <Route path="*" element={<NotFound />} />
           <Route path="/disclaimer/" element={<Disclaimer />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
       <Footer />

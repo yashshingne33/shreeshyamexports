@@ -1,5 +1,5 @@
 import { Link, Navigate, useParams } from "react-router-dom";
-import { getProduct, PRODUCTS, faqsFor } from "../data/products.js";
+import { getProduct, resolveSlug, PRODUCTS, faqsFor } from "../data/products.js";
 import Breadcrumbs from "../components/Breadcrumbs.jsx";
 import FaqAccordion from "../components/FaqAccordion.jsx";
 import { Seo, WRAP, SECTION, CARD, QuoteLink } from "../components/ui.jsx";
@@ -44,8 +44,10 @@ function SectionHeader({ eyebrow, title, sub, id, className = "" }) {
 
 export default function ProductDetail() {
   const { slug } = useParams();
-  const p = getProduct(slug);
-  if (!p) return <Navigate to="/products/" replace />;
+   const canonical = resolveSlug(slug);
+   if (canonical !== slug) return <Navigate to={`/products/${canonical}/`} replace />;
+   const p = getProduct(slug);
+   if (!p) return <Navigate to="/products/" replace />;
 
   const spec = p.approvedSpec;
   const related = PRODUCTS.filter((x) => x.slug !== p.slug)

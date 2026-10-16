@@ -1,17 +1,19 @@
 import { Link } from "react-router-dom";
 import { COMPANY } from "../data/site.js";
+import { getProduct, legacyNamesFor } from "../data/products.js";
 import { Seo, WRAP, SECTION, ContactLines, QuoteLink } from "../components/ui.jsx";
 import heroImg from "../assets/hero1.png";
 import AboutImg from "../assets/hero-old.png";
 import {
-  Photo, ProductPhoto, ProcessFlow, EXPORT_FLOW, SectionHeader, Icon, ICONS, GRID_BG,
+  Photo, ProductPhoto, ProcessFlow, SectionHeader, Icon, ICONS, GRID_BG,
   BTN_PRIMARY, BTN_GHOST_DARK, BTN_GHOST_LIGHT, TEXT_LINK, EDGE,
 } from "../components/PageKit.jsx";
 
 /* ------------------------------------------------------------------ *
  * PRODUCT IMAGES
  * Put your photos in  src/assets/products/  and name each file after
- * the product slug (.jpg / .jpeg / .png / .webp all work).
+ * the product slug (.jpg / .jpeg / .png / .webp all work). Old file
+ * names (shisha-cubes, hexa-charcoal, ...) are still found.
  * If a file is missing, the product falls back to <ProductPhoto>.
  * ------------------------------------------------------------------ */
 const PRODUCT_IMAGES = Object.fromEntries(
@@ -21,7 +23,7 @@ const PRODUCT_IMAGES = Object.fromEntries(
 );
 
 function ProductImage({ slug, alt, ratio, zoom = false, className = "" }) {
-  const src = PRODUCT_IMAGES[slug];
+  const src = [slug, ...legacyNamesFor(slug)].map((n) => PRODUCT_IMAGES[n]).find(Boolean);
   if (!src) return <ProductPhoto slug={slug} alt={alt} ratio={ratio} zoom={zoom} className={className} />;
   return (
     <Photo
@@ -46,13 +48,15 @@ const FEATURES = [
   { title: "Long-Term Relationships", body: "Clear communication from enquiry to dispatch.", icon: "M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z" },
 ];
 
+/* One complete five-product section. Names and descriptions come from
+   data/products.js so the homepage, catalogue and product pages never drift. */
 const PORTFOLIO = [
-  { name: "Coconut Shell Charcoal", slug: "coconut-shell-charcoal", use: "Carbonised coconut shell for specified uses." },
-  { name: "Shisha / Hookah Charcoal Cubes", slug: "shisha-cubes", use: "Cube formats for shisha brands, distributors and wholesale buyers." },
-  { name: "Hexagonal Charcoal Briquettes", slug: "hexa-charcoal", use: "Hexagonal formats with a defined shape." },
-  { name: "BBQ Charcoal / Briquettes", slug: "charcoal-briquette", use: "Pillow-shaped briquettes for BBQ and foodservice supply." },
-  { name: "Coconut Shell Activated Carbon", slug: "activated-charcoal", use: "Presented with its own technical data, not as another charcoal shape.", technical: true },
-];
+  "coconut-shell-charcoal",
+  "hookah-charcoal-cubes",
+  "hexagonal-charcoal-briquettes",
+  "pillow-charcoal-briquettes",
+  "coconut-shell-activated-carbon",
+].map(getProduct).filter(Boolean);
 
 const PORTFOLIO_POS = [
   "",
@@ -65,36 +69,21 @@ const PORTFOLIO_POS = [
 const VALUES = ["Integrity", "Transparency", "Quality", "Commitment", "Long-term Relationships"];
 
 const WHY = [
-  ["Specification-focused sourcing", "Products matched to your requirement and application."],
-  ["Supplier coordination", "Specification, packing and dispatch coordinated with the supplier."],
-  ["Quality and documentation support", "Applicable documents provided or arranged per product and destination."],
-  ["Packaging flexibility", "Bulk and customised packing, subject to MOQ and confirmation."],
-  ["Export execution", "Documentation, packing and shipment coordinated for the agreed order."],
-  ["Transparent communication", "Clear discussion of specifications, packaging and commercial terms."],
+  ["Specification Review", "We review your application, required parameters and packing needs before preparing an offer."],
+  ["Supplier Coordination", "We coordinate product requirements, packaging and dispatch with the supplier for the agreed order."],
+  ["Product Documentation", "We confirm the technical, safety and quality documents available for the proposed grade."],
+  ["Packaging Options", "Bulk, retail and private-label formats are confirmed against the product and order quantity."],
+  ["Export Coordination", "We coordinate the agreed documentation and shipment arrangements for your destination."],
+  ["Clear Communication", "Product specifications, commercial terms and order requirements are confirmed in writing."],
 ];
 
-const FEATURED = [
-  {
-    name: "Shisha / Hookah Charcoal Cubes",
-    slug: "hookah-shisha",
-    tag: "Shisha",
-    body: "Cube formats for shisha brands, distributors and wholesale buyers.",
-    confirm: ["Cube size and specification", "Pack format for your brand"],
-  },
-  {
-    name: "BBQ Charcoal / Briquettes",
-    slug: "charcoal-briquette",
-    tag: "BBQ & Foodservice",
-    body: "Compare briquette formats and confirm packing for your market.",
-    confirm: ["Briquette format", "Packing for your market"],
-  },
-  {
-    name: "Coconut Shell Activated Carbon",
-    slug: "activated-charcoal",
-    tag: "Technical",
-    body: "Share your application, mesh and parameters so the right grade can be confirmed.",
-    confirm: ["Application and mesh size", "Technical parameters"],
-  },
+/* Homepage export flow (the shared EXPORT_FLOW in PageKit is used by other pages) */
+const HOME_FLOW = [
+  ["Requirement Review", "Share the product, application, quantity and destination."],
+  ["Specification Confirmation", "Review the proposed grade and confirm the required parameters."],
+  ["Inspection and Packing", "Agree the inspection scope and packaging before dispatch."],
+  ["Documentation", "Confirm the documents required for the product and shipment."],
+  ["Shipment Coordination", "Confirm the route and dispatch arrangements for the agreed order."],
 ];
 
 const ENQUIRY_ITEMS = [
@@ -112,7 +101,6 @@ const ENQUIRY_STEPS = [
 
 /* Hover lift only on devices that really hover (no "stuck" hover on iPhone/iPad) */
 const LIFT_SM = "motion-safe:[@media(hover:hover)]:hover:-translate-y-1";
-const LIFT_LG = "motion-safe:[@media(hover:hover)]:hover:-translate-y-1.5";
 
 export default function Home() {
   return (
@@ -139,22 +127,20 @@ export default function Home() {
                 <span className="text-[0.65rem] font-bold uppercase tracking-widest text-brass min-[400px]:text-[0.7rem] sm:text-xs">Indian Supplier & Exporter</span>
               </div>
 
-              <h1 id="hero-title" className="mt-5 font-serif font-bold text-white">
-                <span className="block text-[1.875rem] leading-[1.1] min-[400px]:text-4xl sm:text-5xl sm:leading-[1.08] xl:text-[3.5rem]">
-                  Coconut Charcoal <span className="font-medium text-brass">&amp;</span>
-                </span>
-                <span className="block text-[1.875rem] leading-[1.1] min-[400px]:text-4xl sm:text-5xl sm:leading-[1.08] xl:text-[3.5rem]">Activated Carbon</span>
-                <span className="mt-3 block text-lg font-medium leading-snug text-white/90 min-[400px]:text-xl sm:text-2xl xl:text-[1.75rem]">for International Buyers</span>
+              <h1
+                id="hero-title"
+                className="mt-5 max-w-xl font-serif text-[1.875rem] font-bold leading-[1.1] text-white [text-wrap:balance] min-[400px]:text-4xl sm:text-5xl sm:leading-[1.08] xl:text-[3.5rem]"
+              >
+                Coconut Charcoal and Activated Carbon <span className="font-medium text-brass">from India</span>
               </h1>
 
-              <div className="mt-5 max-w-md space-y-1 text-sm leading-relaxed text-white/85 sm:mt-6 sm:text-base">
-                <p className="font-medium text-white">Supplier and exporter of coconut charcoal products and coconut shell activated carbon.</p>
-                <p>Clear specifications. Dependable communication. Export-ready support.</p>
-              </div>
+              <p className="mt-5 max-w-lg text-sm leading-relaxed text-white/85 sm:mt-6 sm:text-base">
+                {COMPANY.name} supplies coconut shell charcoal, shisha charcoal cubes, BBQ briquettes and coconut shell activated carbon to international buyers. Share your specification, packaging requirements and destination for a product-specific quotation.
+              </p>
 
               <div className="mt-7 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:gap-4">
                 <QuoteLink className={`${BTN_PRIMARY} justify-center px-7 py-3.5 text-center`}>Request a Quote <span aria-hidden="true">&rarr;</span></QuoteLink>
-                <Link to="/products/" className={`${BTN_GHOST_DARK} justify-center px-7 py-3.5 text-center`}>View Products</Link>
+                <Link to="/products/" className={`${BTN_GHOST_DARK} justify-center px-7 py-3.5 text-center`}>Explore Products</Link>
               </div>
             </div>
           </div>
@@ -194,10 +180,10 @@ export default function Home() {
           <div className="lg:col-span-7">
             <span className="text-xs font-bold uppercase tracking-widest text-brass">Our Experience</span>
             <h2 id="experience-title" className="mt-3 font-serif text-3xl font-bold leading-tight text-charcoal sm:text-4xl lg:text-5xl">
-              A new name, backed by 25 years of industry experience.
+              A new name backed by over 25 years of industry experience
             </h2>
             <p className="mt-5 max-w-xl text-base leading-relaxed text-slate sm:mt-6 sm:text-lg">
-              {COMPANY.name} is a new company, but the experience behind it is not. Our team has worked in the carbon and metallurgical fuel industry for more than 25 years, developing practical knowledge of Charcoal, Met Coke and LAM Coke, including product quality, sourcing, market requirements and customer expectations.
+              Our team brings over 25 years of experience in charcoal, Met Coke and LAM Coke. We apply this industry knowledge to sourcing, specification review, packaging and export coordination for international buyers.
             </p>
             <ul className="mt-6 flex flex-wrap gap-2.5 sm:mt-7 sm:gap-3" aria-label="Our values">
               {VALUES.map((v) => (
@@ -229,12 +215,16 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 03 Product portfolio: five clear categories */}
+      {/* 03 Product portfolio: the one complete five-product section */}
       <section className={`${SECTION} overflow-hidden bg-white`} aria-labelledby="portfolio-title">
         <div className={WRAP}>
           <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-            <SectionHeader eyebrow="Product Portfolio" title="Coconut Charcoal and Activated Carbon" id="portfolio-title"
-              sub="Five product categories, each with its own specification page." />
+            <SectionHeader
+              eyebrow="Product Portfolio"
+              title="Coconut Charcoal and Activated Carbon"
+              id="portfolio-title"
+              sub="Explore coconut shell charcoal, shisha cubes, BBQ briquettes and activated carbon for your application."
+            />
             <Link to="/products/" className={`${BTN_GHOST_LIGHT} shrink-0 self-start whitespace-nowrap sm:self-auto`}>View all products</Link>
           </div>
 
@@ -256,7 +246,7 @@ export default function Home() {
 
                   <Link to={`/products/${p.slug}/`} tabIndex={-1} aria-hidden="true" className="relative block overflow-hidden">
                     <ProductImage slug={p.slug} alt={p.name} ratio="aspect-[4/3]" zoom />
-                    {p.technical && (
+                    {p.family === "carbon" && (
                       <span className="absolute left-2.5 top-2.5 rounded bg-charcoal px-2 py-0.5 text-[0.6rem] font-bold uppercase tracking-widest text-brass">
                         Technical
                       </span>
@@ -269,12 +259,15 @@ export default function Home() {
                         {p.name}
                       </Link>
                     </h3>
-                    <p className="mt-1.5 line-clamp-3 flex-1 text-[0.8125rem] leading-snug text-slate">{p.use}</p>
+                    <p className="mt-1.5 flex-1 text-[0.8125rem] leading-snug text-slate">{p.summary}</p>
 
                     <div className="mt-4 flex flex-col gap-1.5 border-t border-charcoal/10 pt-3">
                       <Link to={`/products/${p.slug}/`} className={`${TEXT_LINK} text-[0.8125rem]`}>
-                        View Specifications <span aria-hidden="true">&rarr;</span>
+                        View Product Details <span aria-hidden="true">&rarr;</span>
                       </Link>
+                      <QuoteLink product={p.slug} className={`${TEXT_LINK} text-[0.8125rem] !text-charcoal hover:!text-brass`}>
+                        Request a Quote
+                      </QuoteLink>
                     </div>
                   </div>
                 </article>
@@ -304,9 +297,6 @@ export default function Home() {
                   <h2 id="why-title" className="mt-2 font-serif text-xl font-bold leading-tight min-[400px]:text-2xl sm:text-[1.7rem]">
                     Why <span className="text-brass">{COMPANY.name}</span>
                   </h2>
-                  <p className="mt-3 text-xs leading-snug text-white/75">
-                    Reasons that matter to an overseas buyer, stated plainly.
-                  </p>
                 </div>
               </div>
             </div>
@@ -348,122 +338,18 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 05 Featured products */}
-      <section
-        className="relative overflow-hidden bg-charcoal py-16 text-white sm:py-20 lg:py-28"
-        aria-labelledby="featured-title"
-      >
-        <div className="pointer-events-none absolute inset-0" style={GRID_BG} aria-hidden="true" />
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-brass/10 via-transparent to-transparent" aria-hidden="true" />
-
-        <div className={`relative z-10 ${WRAP}`}>
-          {/* Header */}
-          <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between sm:gap-6">
-            <div className="max-w-3xl">
-              <span className="text-xs font-bold uppercase tracking-widest text-brass">Featured Products</span>
-              <h2 id="featured-title" className="mt-3 font-serif text-3xl font-bold leading-tight text-white sm:text-3xl lg:text-4xl">
-                Shisha, BBQ and Activated Carbon
-              </h2>
-              <p className="mt-4 max-w-xl text-base leading-relaxed text-white/80 sm:text-lg">
-                Go straight to product details, or request a quote for the product you need.
-              </p>
-            </div>
-            <Link to="/products/" className={`${BTN_GHOST_DARK} shrink-0 self-start whitespace-nowrap sm:self-auto`}>
-              View all products <span aria-hidden="true">&rarr;</span>
-            </Link>
-          </div>
-
-          {/* Cards: single centred column up to lg, 3 across from lg */}
-          <ul className="mx-auto mt-10 grid max-w-md gap-6 sm:mt-14 sm:max-w-lg lg:max-w-none lg:grid-cols-3 lg:gap-6 xl:gap-8">
-            {FEATURED.map((f, i) => (
-              <li key={f.slug} className="flex">
-                <article className={`group relative flex w-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-b from-white/[0.07] to-white/[0.02] shadow-xl transition-[transform,box-shadow,border-color] duration-300 hover:border-brass/50 hover:shadow-2xl ${LIFT_LG}`}>
-                  {/* brass accent line */}
-                  <span
-                    className="absolute inset-x-0 top-0 z-20 h-0.5 origin-left scale-x-0 bg-brass transition-transform duration-300 group-hover:scale-x-100"
-                    aria-hidden="true"
-                  />
-
-                  {/* Image */}
-                  <Link to={`/products/${f.slug}/`} tabIndex={-1} aria-hidden="true" className="relative block overflow-hidden">
-                    <ProductImage slug={f.slug} alt={f.name} ratio="aspect-[4/3]" zoom />
-                    <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/10 to-transparent" aria-hidden="true" />
-
-                    <span className="absolute left-3 top-3 rounded-full border border-brass/60 bg-charcoal/90 px-3 py-1 text-[0.65rem] font-bold uppercase tracking-widest text-brass sm:left-4 sm:top-4">
-                      {f.tag}
-                    </span>
-                    <span
-                      className="absolute bottom-2 right-4 font-serif text-4xl font-bold leading-none text-transparent [-webkit-text-stroke:1px_rgba(255,255,255,0.55)] sm:text-5xl"
-                      aria-hidden="true"
-                    >
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                  </Link>
-
-                  {/* Content */}
-                  <div className="flex flex-1 flex-col p-5 sm:p-6">
-                    <h3 className="font-serif text-xl font-bold leading-snug text-white lg:min-h-[2.75em] lg:text-[1.35rem]">
-                      <Link
-                        to={`/products/${f.slug}/`}
-                        className="transition-colors hover:text-brass focus-visible:outline focus-visible:outline-2 focus-visible:outline-brass"
-                      >
-                        {f.name}
-                      </Link>
-                    </h3>
-
-                    {/* flex-1 here keeps the boxes and buttons aligned across cards */}
-                    <p className="mt-2 flex-1 text-[0.95rem] leading-relaxed text-white/70">{f.body}</p>
-
-                    <div className="mt-5 rounded-xl border border-white/10 bg-charcoal/50 p-4">
-                      <p className="text-[0.65rem] font-bold uppercase tracking-widest text-brass">We'll confirm</p>
-                      <ul className="mt-3 space-y-2">
-                        {f.confirm.map((c) => (
-                          <li key={c} className="flex items-center gap-2.5 text-sm text-white/85">
-                            <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-brass/20 text-brass">
-                              <Icon d={ICONS.check} className="h-3.5 w-3.5" />
-                            </span>
-                            {c}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    <div className="mt-5 flex flex-col gap-3">
-                      <QuoteLink product={f.slug} className={`${BTN_PRIMARY} w-full justify-center whitespace-nowrap py-3 text-center`}>
-                        Request a Quote <span aria-hidden="true">&rarr;</span>
-                      </QuoteLink>
-                      <Link
-                        to={`/products/${f.slug}/`}
-                        className="inline-flex items-center justify-center gap-1.5 py-1 text-sm font-semibold text-white/80 transition-colors hover:text-brass focus-visible:outline focus-visible:outline-2 focus-visible:outline-brass"
-                      >
-                        Product details <span aria-hidden="true">&rarr;</span>
-                      </Link>
-                    </div>
-                  </div>
-                </article>
-              </li>
-            ))}
-          </ul>
-
-          {/* Closing strip */}
-          <div className="mt-10 flex flex-col items-center justify-between gap-4 rounded-2xl border border-white/10 bg-white/[0.03] px-5 py-5 text-center sm:mt-12 sm:px-6 md:flex-row md:text-left">
-            <p className="text-white/80">
-              <span className="font-semibold text-white">Need another format or grade?</span>{" "}
-              Send your specification and destination.
-            </p>
-            <QuoteLink className={`${BTN_GHOST_DARK} w-full shrink-0 justify-center whitespace-nowrap px-6 py-2.5 text-center md:w-auto`}>
-              Send Your Requirement <span aria-hidden="true">&rarr;</span>
-            </QuoteLink>
-          </div>
-        </div>
-      </section>
-
-      {/* 06 Quality & export process */}
-      <section className={`${SECTION} bg-ivory`} aria-labelledby="process-title">
+      {/* 05 Export process (the repeated Featured Products cards were removed:
+          every product stays reachable from the portfolio section above) */}
+      <section className={`${SECTION} bg-white`} aria-labelledby="process-title">
         <div className={WRAP}>
-          <SectionHeader eyebrow="Quality & Export Process" title="From Supplier to Shipment" id="process-title" center
-            sub="A simple, controlled flow. Applicable documentation can be provided or arranged according to product, destination and buyer requirements." />
-          <div className="mt-10 sm:mt-14"><ProcessFlow steps={EXPORT_FLOW} /></div>
+          <SectionHeader
+            eyebrow="Quality & Export Process"
+            title="From Supplier to Shipment"
+            id="process-title"
+            center
+            sub="From specification review to dispatch, each order is coordinated against the agreed product, packing and commercial requirements."
+          />
+          <div className="mt-10 sm:mt-14"><ProcessFlow steps={HOME_FLOW} /></div>
           <p className="mt-8 flex flex-col items-center gap-3 sm:mt-10 sm:flex-row sm:flex-wrap sm:justify-center sm:gap-x-8">
             <Link to="/quality/" className={TEXT_LINK}>Quality and documentation <span aria-hidden="true">&rarr;</span></Link>
             <Link to="/export-ordering/" className={TEXT_LINK}>How export orders work <span aria-hidden="true">&rarr;</span></Link>
@@ -471,12 +357,16 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 07 Packaging / private label */}
-      <section className={`${SECTION} overflow-hidden bg-white`} aria-labelledby="pack-title">
+      {/* 06 Packaging / private label */}
+      <section className={`${SECTION} overflow-hidden bg-ivory`} aria-labelledby="pack-title">
         <div className={`${WRAP} grid items-center gap-10 sm:gap-12 lg:grid-cols-12 lg:gap-16`}>
           <div className="lg:col-span-6">
-            <SectionHeader eyebrow="Packaging & Private Label" title="Packaging for Your Product and Market" id="pack-title"
-              sub="Bulk packing and customised or private-label packaging can be discussed for your selected product, subject to MOQ and confirmation." />
+            <SectionHeader
+              eyebrow="Packaging & Private Label"
+              title="Packaging for Your Product and Market"
+              id="pack-title"
+              sub="Explore bulk, retail and private-label packing for your selected product. Pack materials, quantities and artwork requirements are agreed before production."
+            />
             <ul className="mt-6 space-y-3">
               {["Bulk packing for your selected grade", "Retail-ready packs for your sales channel", "Private-label packs, subject to MOQ and confirmation"].map((x) => (
                 <li key={x} className="flex items-center gap-3 text-slate">
@@ -485,7 +375,7 @@ export default function Home() {
                 </li>
               ))}
             </ul>
-            <Link to="/packaging-private-label/" className={`${BTN_GHOST_LIGHT} mt-7 sm:mt-8`}>Explore Packaging <span aria-hidden="true">&rarr;</span></Link>
+            <Link to="/packaging-private-label/" className={`${BTN_GHOST_LIGHT} mt-7 sm:mt-8`}>View Packaging Options <span aria-hidden="true">&rarr;</span></Link>
           </div>
 
           <div className="mx-auto w-full max-w-xl lg:col-span-6 lg:max-w-none">
@@ -514,8 +404,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 08 Send your requirement (form removed, now a contact panel) */}
-      <section id="rfq" className={`${SECTION} scroll-mt-20 bg-ivory sm:scroll-mt-24`} aria-labelledby="rfq-title">
+      {/* 07 Send your requirement */}
+      <section id="rfq" className={`${SECTION} scroll-mt-20 bg-white sm:scroll-mt-24`} aria-labelledby="rfq-title">
         <div className={WRAP}>
           <div className="relative overflow-hidden rounded-2xl bg-charcoal text-white shadow-2xl sm:rounded-3xl">
             <div className="pointer-events-none absolute inset-0" style={GRID_BG} aria-hidden="true" />
@@ -531,13 +421,25 @@ export default function Home() {
                   Send Your Requirement
                 </h2>
                 <p className="mt-4 max-w-xl text-base leading-relaxed text-white/85 sm:mt-5 sm:text-lg">
-                  Tell us the product, quantity and destination. Add your technical specification if you have one, and our export desk will reply by email.
+                  Send your product requirement, estimated quantity and destination port. Attach your specification or packaging brief so our export team can review the details and prepare the next steps.
                 </p>
 
                 <div className="mt-7 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:gap-4">
                   <QuoteLink className={`${BTN_PRIMARY} justify-center px-7 py-3.5 text-center`}>Request a Quote <span aria-hidden="true">&rarr;</span></QuoteLink>
-                  <Link to="/export-ordering/" className={`${BTN_GHOST_DARK} justify-center px-7 py-3.5 text-center`}>How export orders work</Link>
+                  <Link to="/contact/" className={`${BTN_GHOST_DARK} justify-center px-7 py-3.5 text-center`}>Contact Our Export Team</Link>
                 </div>
+
+                {COMPANY.email && (
+                  <p className="mt-5 text-sm text-white/80">
+                    Or email us at{" "}
+                    <a
+                      href={`mailto:${COMPANY.email}`}
+                      className="break-all font-semibold text-brass underline decoration-2 underline-offset-4 transition-colors hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brass"
+                    >
+                      {COMPANY.email}
+                    </a>
+                  </p>
+                )}
 
                 <ol className="mt-10 grid gap-5 border-t border-white/15 pt-7 sm:mt-12 sm:grid-cols-3 sm:gap-6 sm:pt-8">
                   {ENQUIRY_STEPS.map(([t, d], i) => (

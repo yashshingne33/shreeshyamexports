@@ -91,6 +91,11 @@ export function ContactLines({ className = "" }) {
   );
 }
 
-export function QuoteLink({ product, children = "Request an Export Quote", className = BTN_BRASS }) {
-  return <Link to={product ? `/request-a-quote/?product=${product}` : "/request-a-quote/"} className={className}>{children}</Link>;
+export function QuoteLink({ product, type, docs, children = "Request an Export Quote", className = BTN_BRASS }) {
+  const q = new URLSearchParams();
+  if (product) q.set("product", product);
+  if (type) q.set("type", type);
+  if (docs) q.set("docs", docs);
+  const qs = q.toString();
+  return <Link to={`/request-a-quote/${qs ? `?${qs}` : ""}`} className={className}>{children}</Link>;
 }

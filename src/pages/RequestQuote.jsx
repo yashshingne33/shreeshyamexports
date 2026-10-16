@@ -1,7 +1,7 @@
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, Navigate, useSearchParams } from "react-router-dom";
 import Breadcrumbs from "../components/Breadcrumbs.jsx";
 import RfqForm from "../components/RfqForm.jsx";
-import { getProduct } from "../data/products.js";
+import { getProduct, resolveSlug } from "../data/products.js";
 import { Seo, WRAP, SECTION, ContactLines } from "../components/ui.jsx";
 import {
   PageBanner, TrustStrip, Icon, ICONS, GRID_BG, TEXT_LINK,
@@ -22,7 +22,14 @@ const NEXT = [
 
 export default function RequestQuote() {
   const [params] = useSearchParams();
-  const p = getProduct(params.get("product") || "");
+   const raw = params.get("product") || "";
+   const key = resolveSlug(raw);
+   if (raw && key !== raw) {
+     const next = new URLSearchParams(params);
+     next.set("product", key);
+     return <Navigate to={`/request-a-quote/?${next.toString()}`} replace />;
+   }
+   const p = getProduct(key);
 
   return (
     <>
