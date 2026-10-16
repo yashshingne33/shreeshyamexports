@@ -24,7 +24,7 @@ export default function Contact() {
       <Seo title="Contact" description={` ${COMPANY.name}, an India-based merchant exporter of coconut charcoal and activated carbon.`} />
 
       <PhotoBanner
-        image={IAMAGES.logistics}
+        image={IMAGES.logistics}
         eyebrow="Contact"
         title="Contact Our Export Desk"
         body="The fastest way to reach our export desk is the enquiry form. Your enquiry is stored and given a reference number."

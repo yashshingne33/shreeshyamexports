@@ -4,7 +4,7 @@ import Breadcrumbs from "../components/Breadcrumbs.jsx";
 import FaqAccordion from "../components/FaqAccordion.jsx";
 import { Seo, WRAP, SECTION, CARD, QuoteLink } from "../components/ui.jsx";
 import { ProductPhoto } from "./Products.jsx";
-import { UspBar, NaturalSeal, GreenBand, ApplicationTiles } from "../components/ProductHighlights.jsx";
+import { RawMaterialBand, ApplicationTiles } from "../components/ProductHighlights.jsx";
 
 /* ------------------------------------------------------------------ *
  * SHARED STYLES (same tokens as the homepage hero, header and footer)
@@ -22,6 +22,13 @@ const FACTS = [
   { title: "Packaging", body: "Bulk, retail and private-label packing can be discussed.", icon: "M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" },
   { title: "Export Coordination", body: "Sample review, quotation and shipment support.", icon: "M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" },
 ];
+
+const INTERIM_SPEC_BODY =
+  "Share your application and required parameters. We will review available grades and confirm the proposed specification, packaging and supporting documents with your quotation.";
+const FINAL_SPEC_INTRO =
+  "The table below describes the stated grade. Typical values are indicative; guaranteed limits and test methods are identified separately. The final supply specification is confirmed in the accepted quotation.";
+const COMMERCIAL_COPY =
+  "Packing, minimum order quantity and production lead time are confirmed for the selected grade and order quantity. Private-label requirements are reviewed before quotation. Production lead time and freight transit time are stated separately.";
 
 const Icon = ({ d, className = "h-5 w-5" }) => (
   <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5} aria-hidden="true">
@@ -44,10 +51,11 @@ function SectionHeader({ eyebrow, title, sub, id, className = "" }) {
 
 export default function ProductDetail() {
   const { slug } = useParams();
-   const canonical = resolveSlug(slug);
-   if (canonical !== slug) return <Navigate to={`/products/${canonical}/`} replace />;
-   const p = getProduct(slug);
-   if (!p) return <Navigate to="/products/" replace />;
+  const canonical = resolveSlug(slug);
+  if (canonical !== slug) return <Navigate to={`/products/${canonical}/`} replace />;
+
+  const p = getProduct(slug);
+  if (!p) return <Navigate to="/products/" replace />;
 
   const spec = p.approvedSpec;
   const related = PRODUCTS.filter((x) => x.slug !== p.slug)
@@ -60,8 +68,7 @@ export default function ProductDetail() {
       <Breadcrumbs trail={[{ label: "Products", to: "/products/" }, { label: p.shortName }]} />
 
       {/* ============================ HERO ============================ */}
-      {/* min-height (not fixed) so the USP badges can never overflow on short screens */}
-      <section className="flex flex-col bg-ivory lg:min-h-[max(600px,calc(100svh-11rem))]" aria-labelledby="product-title">
+      <section className="flex flex-col bg-ivory lg:min-h-[max(560px,calc(100svh-11rem))]" aria-labelledby="product-title">
         <div className={`${EDGE} grid flex-1 items-center gap-8 py-8 sm:py-10 lg:grid-cols-2 lg:gap-12 lg:py-10 xl:gap-16`}>
           {/* Text column (below the image on mobile) */}
           <div className="order-2 min-w-0 lg:order-1">
@@ -74,16 +81,16 @@ export default function ProductDetail() {
             </h1>
             <p className="mt-4 max-w-xl text-[0.95rem] leading-relaxed text-slate sm:text-base">{p.intro}</p>
 
-            <UspBar product={p} />
-
             <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:gap-4">
               <QuoteLink product={p.slug} className={`${BTN_PRIMARY} w-full px-7 py-3.5 sm:w-auto`}>
-                Request this Product <span aria-hidden="true">&rarr;</span>
+                Request a Quote <span aria-hidden="true">&rarr;</span>
               </QuoteLink>
               {spec?.tdsUrl ? (
                 <a href={spec.tdsUrl} download className={`${BTN_GHOST_LIGHT} w-full px-7 py-3.5 sm:w-auto`}>Download TDS</a>
               ) : (
-                <QuoteLink product={p.slug} className={`${BTN_GHOST_LIGHT} w-full px-7 py-3.5 sm:w-auto`}>Request Grade Details</QuoteLink>
+                <QuoteLink product={p.slug} type="technical-documents" docs="tds" className={`${BTN_GHOST_LIGHT} w-full px-7 py-3.5 sm:w-auto`}>
+                  Request Technical Data Sheet
+                </QuoteLink>
               )}
             </div>
           </div>
@@ -96,7 +103,6 @@ export default function ProductDetail() {
                 eager
                 className="aspect-[4/3] sm:aspect-[16/10] lg:aspect-auto lg:h-[clamp(300px,50vh,460px)]"
               />
-              <NaturalSeal />
             </div>
           </div>
         </div>
@@ -119,21 +125,16 @@ export default function ProductDetail() {
         </div>
       </section>
 
-      {/* ========================= GO GREEN BAND ========================= */}
-      <GreenBand product={p} />
+      {/* ===================== COCONUT SHELL RAW MATERIAL ===================== */}
+      <RawMaterialBand />
 
       {/* ====================== TECHNICAL SPECIFICATION ====================== */}
       <section id="specifications" className={`${SECTION} scroll-mt-24 bg-white`} aria-labelledby="spec-title">
         <div className={WRAP}>
-          <SectionHeader
-            eyebrow="Technical Specification"
-            title="Specifications You Can Review"
-            id="spec-title"
-            sub={spec ? undefined : "Share your required values and we will recommend a grade. These are the parameters buyers typically specify."}
-          />
-
           {spec ? (
             <>
+              <SectionHeader eyebrow="Technical Specification" title="Technical Specifications" id="spec-title" sub={FINAL_SPEC_INTRO} />
+
               <div className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-3">
                 <span className="rounded-full border border-brass/50 bg-brass/10 px-4 py-1.5 text-sm font-bold text-charcoal">Grade {spec.grade}</span>
                 <span className="text-sm font-medium text-slate">Revised {spec.revised}</span>
@@ -162,7 +163,7 @@ export default function ProductDetail() {
                   <thead className="border-b-2 border-brass bg-ivory text-xs font-bold uppercase tracking-wide text-charcoal">
                     <tr>
                       <th scope="col" className="px-5 py-4">Parameter</th>
-                      <th scope="col" className="px-5 py-4">Limit or typical value</th>
+                      <th scope="col" className="px-5 py-4">Typical value or guaranteed limit</th>
                       <th scope="col" className="px-5 py-4">Unit and basis</th>
                       <th scope="col" className="px-5 py-4">Method</th>
                     </tr>
@@ -182,20 +183,30 @@ export default function ProductDetail() {
             </>
           ) : (
             <>
-              <dl className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                {p.params.map(([k, v]) => (
-                  <div key={k} className="rounded-xl border border-charcoal/10 border-l-4 border-l-brass bg-ivory p-5">
-                    <dt className="font-serif text-base font-bold text-charcoal">{k}</dt>
-                    <dd className="mt-1 text-sm leading-relaxed text-slate">{v}</dd>
-                  </div>
-                ))}
-              </dl>
-              {p.note && (
-                <p className="mt-6 max-w-3xl rounded-xl border border-charcoal/10 bg-ivory p-5 text-sm leading-relaxed text-slate">{p.note}</p>
-              )}
-              <QuoteLink product={p.slug} className={`${BTN_PRIMARY} mt-8 w-full sm:w-auto`}>
+              {/* Interim content: no offered values until a dated TDS is approved */}
+              <SectionHeader eyebrow="Technical Review" title="Parameters Available for Technical Review" id="spec-title" sub={INTERIM_SPEC_BODY} />
+
+              <QuoteLink product={p.slug} type="technical-documents" docs="tds" className={`${BTN_PRIMARY} mt-7 w-full sm:w-auto`}>
                 Request Grade Details <span aria-hidden="true">&rarr;</span>
               </QuoteLink>
+
+              <div className="mt-12 border-t border-charcoal/10 pt-10">
+                <h3 className="font-serif text-xl font-bold text-charcoal">Buyer checklist</h3>
+                <p className="mt-2 max-w-2xl text-sm leading-relaxed text-slate">
+                  These are the parameters buyers typically specify. They are a checklist for your enquiry, not offered values.
+                </p>
+                <dl className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                  {p.params.map(([k, v]) => (
+                    <div key={k} className="rounded-xl border border-charcoal/10 border-l-4 border-l-brass bg-ivory p-5">
+                      <dt className="font-serif text-base font-bold text-charcoal">{k}</dt>
+                      <dd className="mt-1 text-sm leading-relaxed text-slate">{v}</dd>
+                    </div>
+                  ))}
+                </dl>
+                {p.note && (
+                  <p className="mt-6 max-w-3xl rounded-xl border border-charcoal/10 bg-ivory p-5 text-sm leading-relaxed text-slate">{p.note}</p>
+                )}
+              </div>
             </>
           )}
 
@@ -216,19 +227,46 @@ export default function ProductDetail() {
         <div className={WRAP}>
           <SectionHeader eyebrow="Commercial Details" title="Packaging and Documents" id="commercial-title" />
           <div className="mt-8 grid gap-5 sm:mt-10 sm:gap-6 lg:grid-cols-2">
-            {[
-              { icon: FACTS[1].icon, title: "Packaging and Commercial Details", to: "/packaging-private-label/", link: "Packaging and private label",
-                text: "Bulk, retail and private-label packing can be discussed for this product. Pack format, MOQ and production lead time are confirmed with the quotation. Lead time is separate from ocean transit." },
-              { icon: FACTS[0].icon, title: "Documents", to: "/quality/", link: "Quality and documentation",
-                text: "A technical data sheet and safety data sheet are provided for approved grades, and a certificate of analysis states the batch, date, laboratory and methods it covers. Ask for the documents you need." },
-            ].map((c) => (
-              <div key={c.title} className="flex flex-col rounded-2xl border border-charcoal/10 border-t-4 border-t-brass bg-ivory p-6 shadow-sm sm:p-7">
-                <span className="flex h-12 w-12 items-center justify-center rounded-full border border-brass/60 bg-white text-brass"><Icon d={c.icon} className="h-6 w-6" /></span>
-                <h3 className="mt-5 font-serif text-xl font-bold text-charcoal">{c.title}</h3>
-                <p className="mt-3 flex-1 leading-relaxed text-slate">{c.text}</p>
-                <Link to={c.to} className={`mt-5 self-start ${TEXT_LINK}`}>{c.link} <span aria-hidden="true">&rarr;</span></Link>
+            <div className="flex flex-col rounded-2xl border border-charcoal/10 border-t-4 border-t-brass bg-ivory p-6 shadow-sm sm:p-7">
+              <span className="flex h-12 w-12 items-center justify-center rounded-full border border-brass/60 bg-white text-brass"><Icon d={FACTS[1].icon} className="h-6 w-6" /></span>
+              <h3 className="mt-5 font-serif text-xl font-bold text-charcoal">Packaging and Commercial Details</h3>
+              <p className="mt-3 leading-relaxed text-slate">{COMMERCIAL_COPY}</p>
+              {(p.packing || p.moq) && (
+                <dl className="mt-4 grid gap-3 text-sm sm:grid-cols-2">
+                  {p.packing && (
+                    <div className="rounded-lg border border-charcoal/10 bg-white p-3">
+                      <dt className="font-bold text-charcoal">Packing options</dt>
+                      <dd className="mt-1 text-slate">{p.packing}</dd>
+                    </div>
+                  )}
+                  {p.moq && (
+                    <div className="rounded-lg border border-charcoal/10 bg-white p-3">
+                      <dt className="font-bold text-charcoal">Minimum order quantity</dt>
+                      <dd className="mt-1 text-slate">{p.moq}</dd>
+                    </div>
+                  )}
+                </dl>
+              )}
+              <Link to="/packaging-private-label/" className={`mt-5 self-start ${TEXT_LINK}`}>Packaging and private label <span aria-hidden="true">&rarr;</span></Link>
+            </div>
+
+            <div className="flex flex-col rounded-2xl border border-charcoal/10 border-t-4 border-t-brass bg-ivory p-6 shadow-sm sm:p-7">
+              <span className="flex h-12 w-12 items-center justify-center rounded-full border border-brass/60 bg-white text-brass"><Icon d={FACTS[0].icon} className="h-6 w-6" /></span>
+              <h3 className="mt-5 font-serif text-xl font-bold text-charcoal">Documents</h3>
+              <p className="mt-3 flex-1 leading-relaxed text-slate">
+                A technical data sheet and safety data sheet are provided for approved grades, and a certificate of analysis states the batch, date, laboratory and methods it covers. Ask for the documents you need.
+              </p>
+              <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-3">
+                {spec?.tdsUrl ? (
+                  <a href={spec.tdsUrl} download className={TEXT_LINK}>Download TDS <span aria-hidden="true">&darr;</span></a>
+                ) : (
+                  <QuoteLink product={p.slug} type="technical-documents" docs="tds" className={TEXT_LINK}>
+                    Request Technical Data Sheet <span aria-hidden="true">&rarr;</span>
+                  </QuoteLink>
+                )}
+                <Link to="/quality/" className={TEXT_LINK}>Quality and documentation <span aria-hidden="true">&rarr;</span></Link>
               </div>
-            ))}
+            </div>
           </div>
         </div>
       </section>
@@ -262,7 +300,7 @@ export default function ProductDetail() {
                   </div>
                   <div className="flex flex-1 flex-col p-5">
                     <h3 className="font-serif text-lg font-bold text-charcoal">{r.shortName}</h3>
-                    <span className="mt-auto pt-4 text-sm font-bold text-brass transition-transform group-hover:translate-x-1 motion-reduce:transform-none">View Specifications <span aria-hidden="true">&rarr;</span></span>
+                    <span className="mt-auto pt-4 text-sm font-bold text-brass transition-transform group-hover:translate-x-1 motion-reduce:transform-none">View Product Details <span aria-hidden="true">&rarr;</span></span>
                   </div>
                 </Link>
               </li>
