@@ -137,5 +137,19 @@ export const BRIQUETTE_HUB = {
   children: ["hookah-charcoal-cubes", "pillow-charcoal-briquettes", "hexagonal-charcoal-briquettes"],
 };
 
-export const getProduct = (slug) => PRODUCTS.find((p) => p.slug === slug);
+   // Old addresses and quote keys that may still be in circulation.
+   export const LEGACY_SLUGS = {
+     "shisha-cubes": "hookah-charcoal-cubes",
+     "hookah-shisha": "hookah-charcoal-cubes",
+     "hexa-charcoal": "hexagonal-charcoal-briquettes",
+     "hex-charcoal": "hexagonal-charcoal-briquettes",
+     "charcoal-briquette": "pillow-charcoal-briquettes",
+     "activated-charcoal": "coconut-shell-activated-carbon",
+   };
+   export const resolveSlug = (s = "") => LEGACY_SLUGS[s] ?? s;
+   // Old file names for a canonical slug, so existing images keep working.
+   export const legacyNamesFor = (slug) =>
+     Object.entries(LEGACY_SLUGS).filter(([, v]) => v === slug).map(([k]) => k);
+
+   export const getProduct = (slug) => PRODUCTS.find((p) => p.slug === resolveSlug(slug));
 export const faqsFor = (p) => [...(p.extraFaqs || []), ...common(p.name)];
