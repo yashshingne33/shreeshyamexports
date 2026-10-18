@@ -1,8 +1,9 @@
+import { Link } from "react-router-dom";
 import Breadcrumbs from "../components/Breadcrumbs.jsx";
 import { COMPANY } from "../data/site.js";
-import { Seo, WRAP, SECTION, ContactLines, QuoteLink } from "../components/ui.jsx";
+import { Seo, WRAP, SECTION } from "../components/ui.jsx";
 import {
-  PhotoBanner, SectionHeader, Icon, ICONS, IMAGES, GRID_BG, BTN_PRIMARY,
+  PhotoBanner, SectionHeader, Icon, ICONS, IMAGES, GRID_BG, BTN_PRIMARY, BTN_GHOST_LIGHT,
 } from "../components/PageKit.jsx";
 
 const INCLUDE = [
@@ -14,22 +15,46 @@ const INCLUDE = [
 
 const NEXT = [
   ["Enquiry stored", "Your enquiry is stored and given a reference number."],
-  ["Export desk review", "Our export desk reviews your requirements."],
+  ["Export team review", "Our export team reviews your requirements."],
   ["Reply by email", "We reply by email. Please quote your reference in any follow-up."],
 ];
 
+const BANNER_IMAGE = IMAGES.logistics ?? IMAGES.hero;
+const LINK = "underline decoration-brass decoration-2 underline-offset-4 transition-colors hover:text-brass focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brass";
+
+/* Public details: a row appears only when its value is confirmed in data/site.js.
+   Nothing is ever shown as a placeholder. */
+function detailRows() {
+  return [
+    COMPANY.name && ["Trading name", COMPANY.name],
+    COMPANY.legalName && ["Legal entity", COMPANY.legalName],
+    COMPANY.address && ["Business address", COMPANY.address],
+    COMPANY.email && ["Email", <a key="e" className={LINK} href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a>],
+    COMPANY.phone && ["Phone", <a key="p" className={LINK} href={`tel:${COMPANY.phone.replace(/\s/g, "")}`}>{COMPANY.phone}</a>],
+    COMPANY.whatsapp && ["WhatsApp", <a key="w" className={LINK} href={`https://wa.me/${COMPANY.whatsapp}`} rel="noopener noreferrer">Message us on WhatsApp</a>],
+    COMPANY.exportContact && ["Export contact", COMPANY.exportContact],
+    COMPANY.hours && ["Business hours", `${COMPANY.hours} IST (UTC+05:30)`],
+    COMPANY.registration && ["Registration", COMPANY.registration],
+  ].filter(Boolean);
+}
+
 export default function Contact() {
+  const rows = detailRows();
+
   return (
     <>
-      <Seo title="Contact" description={` ${COMPANY.name}, an India-based merchant exporter of coconut charcoal and activated carbon.`} />
+      <Seo
+        title="Contact"
+        description={`Contact ${COMPANY.name}, an India-based merchant exporter of coconut charcoal and activated carbon.`}
+      />
 
       <PhotoBanner
-        image={IMAGES.logistics}
+        image={BANNER_IMAGE}
         eyebrow="Contact"
-        title="Contact Our Export Desk"
-        body="The fastest way to reach our export desk is the enquiry form. Your enquiry is stored and given a reference number."
+        title="Contact Our Export Team"
+        body="Tell us the product, quantity and destination you have in mind. Our export team will review your requirements and advise the next steps for specification, documentation and quotation."
       >
-        <QuoteLink className={BTN_PRIMARY}>Send Your Requirements <span aria-hidden="true">&rarr;</span></QuoteLink>
+        <Link to="/request-a-quote/" className={BTN_PRIMARY}>Send an Enquiry <span aria-hidden="true">&rarr;</span></Link>
       </PhotoBanner>
 
       <Breadcrumbs trail={[{ label: "Contact" }]} />
@@ -37,8 +62,12 @@ export default function Contact() {
       <section className={`${SECTION} bg-ivory`} aria-labelledby="contact-title">
         <div className={`${WRAP} grid items-start gap-8 lg:grid-cols-12 lg:gap-10`}>
           <div className="rounded-2xl border border-charcoal/10 border-t-4 border-t-brass bg-white p-7 shadow-sm sm:p-9 lg:col-span-7">
-            <SectionHeader eyebrow="Enquiry" title="Send Your Requirements" id="contact-title"
-              sub={`${COMPANY.name} is based in ${COMPANY.country}. Tell us the product, quantity and destination, and add your specification if you have one.`} />
+            <SectionHeader
+              eyebrow="Enquiry"
+              title="Send Your Requirements"
+              id="contact-title"
+              sub={`${COMPANY.name} is based in ${COMPANY.country}. Tell us the product, quantity and destination, and add your specification if you have one.`}
+            />
             <ul className="mt-7 grid gap-3 sm:grid-cols-2">
               {INCLUDE.map(([t, icon]) => (
                 <li key={t} className="flex items-center gap-3 rounded-xl border border-charcoal/10 bg-ivory p-4">
@@ -47,16 +76,32 @@ export default function Contact() {
                 </li>
               ))}
             </ul>
-            <QuoteLink className={`${BTN_PRIMARY} mt-8 px-8 py-3.5`}>Send Your Requirements <span aria-hidden="true">&rarr;</span></QuoteLink>
+
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-4">
+              <Link to="/request-a-quote/" className={`${BTN_PRIMARY} px-8 py-3.5`}>Send an Enquiry <span aria-hidden="true">&rarr;</span></Link>
+              {COMPANY.email && (
+                <a href={`mailto:${COMPANY.email}`} className={`${BTN_GHOST_LIGHT} px-8 py-3.5`}>Email Our Export Team</a>
+              )}
+              {COMPANY.whatsapp && (
+                <a href={`https://wa.me/${COMPANY.whatsapp}`} rel="noopener noreferrer" className={`${BTN_GHOST_LIGHT} px-8 py-3.5`}>WhatsApp</a>
+              )}
+            </div>
           </div>
 
-          <aside className="relative overflow-hidden rounded-2xl bg-charcoal p-7 text-white shadow-xl sm:p-9 lg:col-span-5">
+          <aside className="relative overflow-hidden rounded-2xl bg-charcoal p-7 text-white shadow-xl sm:p-9 lg:col-span-5" aria-labelledby="desk-title">
             <div className="pointer-events-none absolute inset-0" style={GRID_BG} aria-hidden="true" />
             <div className="relative">
               <span className="block h-0.5 w-10 bg-brass" aria-hidden="true" />
-              <h2 className="mt-4 font-serif text-2xl font-bold text-brass">Export Desk</h2>
+              <h2 id="desk-title" className="mt-4 font-serif text-2xl font-bold text-brass">Export Desk</h2>
               <p className="mt-1 text-sm text-white/70">{COMPANY.name} &middot; {COMPANY.country}</p>
-              <ContactLines className="mt-6 text-white/85" />
+              <dl className="mt-6 space-y-4 text-sm">
+                {rows.map(([k, v]) => (
+                  <div key={k} className="grid gap-1 border-t border-white/10 pt-4 first:border-t-0 first:pt-0 sm:grid-cols-[8.5rem_1fr] sm:gap-4">
+                    <dt className="text-xs font-bold uppercase tracking-widest text-brass">{k}</dt>
+                    <dd className="min-w-0 break-words text-white/90 [overflow-wrap:anywhere]">{v}</dd>
+                  </div>
+                ))}
+              </dl>
             </div>
           </aside>
         </div>

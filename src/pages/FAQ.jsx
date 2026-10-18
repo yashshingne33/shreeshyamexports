@@ -4,7 +4,7 @@ import FaqAccordion from "../components/FaqAccordion.jsx";
 import { FAQS } from "../data/site.js";
 import { Seo, WRAP, SECTION, QuoteLink } from "../components/ui.jsx";
 import {
-  PageBanner, TrustStrip, SectionHeader, ClosingCta, Photo, Icon, ICONS, IMAGES, GRID_BG,
+  PageBanner, SectionHeader, ClosingCta, IMAGES, GRID_BG,
   BTN_PRIMARY, BTN_GHOST_DARK,
 } from "../components/PageKit.jsx";
 
@@ -19,8 +19,8 @@ export default function FAQ() {
         title="Frequently Asked Questions"
         body="Practical answers for international buyers. Ask us directly for anything order-specific."
       >
-        <QuoteLink className={BTN_PRIMARY}>Request an Export Quote <span aria-hidden="true">&rarr;</span></QuoteLink>
-        <Link to="/request-a-quote/" className={BTN_GHOST_DARK}>Contact Us</Link>
+        <QuoteLink className={BTN_PRIMARY}>Request a Quote <span aria-hidden="true">&rarr;</span></QuoteLink>
+        <Link to="/contact/" className={BTN_GHOST_DARK}>Contact Us</Link>
       </PageBanner>
 
       <Breadcrumbs trail={[{ label: "FAQ" }]} />
@@ -39,9 +39,9 @@ export default function FAQ() {
             <div className="relative">
               <span className="block h-0.5 w-10 bg-brass" aria-hidden="true" />
               <h3 className="mt-4 font-serif text-2xl font-bold text-brass">Still have a question?</h3>
-              <p className="mt-3 text-sm leading-relaxed text-white/80">Ask our export desk directly for anything order-specific, such as terms, samples or documents for your grade.</p>
-              <QuoteLink className={`${BTN_PRIMARY} mt-6 w-full`}>Request an Export Quote <span aria-hidden="true">&rarr;</span></QuoteLink>
-              <Link to="/products/" className={`${BTN_GHOST_DARK} mt-3 w-full`}>View Products</Link>
+              <p className="mt-3 text-sm leading-relaxed text-white/80">Ask our export team directly for anything order-specific, such as terms, samples or documents for your grade.</p>
+              <QuoteLink className={`${BTN_PRIMARY} mt-6 w-full`}>Request a Quote <span aria-hidden="true">&rarr;</span></QuoteLink>
+              <Link to="/contact/" className={`${BTN_GHOST_DARK} mt-3 w-full`}>Contact Our Export Team</Link>
             </div>
           </aside>
         </div>

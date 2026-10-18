@@ -9,18 +9,18 @@ import {
 import paperwork from "../assets/paperwork.jpg";
 import certification from "../assets/certification.jpg";
 import transport from "../assets/transport.jpg";
-import logistics from "../assets/logistics.jpg"; 
-
+import logistics from "../assets/logistics.jpg";
 
 /* ------------------------------------------------------------------ *
- * CONTENT — plan: responsibilities, documents, substitution approval,
- * issue reporting. Verified scope only: no certification badges and no
- * undefined quality guarantee.
+ * CONTENT (Section 6 of the change document)
+ * Verified scope only: no certification badges, no undefined quality
+ * guarantee, no claim of a public or sample document until a real,
+ * dated file is linked.
  * ------------------------------------------------------------------ */
 const TRUST = [
-  { title: "Dated Data Sheets", body: "Public for approved grades, with version and revision date.", icon: ICONS.doc },
-  { title: "Batch Certificates", body: "Identify the batch, sample, date, laboratory and methods.", icon: ICONS.flask },
-  { title: "Agreed Review", body: "Checked against your order before shipment.", icon: ICONS.clipboard },
+  { title: "Data Sheets", body: "Request the technical data sheet for your proposed grade.", icon: ICONS.doc },
+  { title: "Analysis Records", body: "Ask for the available records for your proposed grade.", icon: ICONS.flask },
+  { title: "Agreed Criteria", body: "Inspection and acceptance criteria are agreed in the quotation.", icon: ICONS.clipboard },
   { title: "Approval for Changes", body: "Grade or supplier changes need your approval.", icon: ICONS.shield },
 ];
 
@@ -31,17 +31,34 @@ const ROLES = [
 ];
 
 const DOCS = [
-  ["Technical data sheet", "Public for approved grades. States grade, limits, methods, version and revision date.", "TDS"],
+  ["Technical data sheet", "Request the available technical data sheet for your proposed grade, including its revision date and stated parameters.", "TDS"],
   ["Safety data sheet", "Product-specific, from the current manufacturer record.", "SDS"],
-  ["Certificate of analysis", "A redacted sample is available. A batch certificate identifies the batch, sample, date, laboratory and methods.", "COA"],
+  ["Analysis records", "Ask for available analysis records for the proposed grade. We will confirm the document scope and any batch-specific testing requirements.", "COA"],
   ["Inspection report", "Third-party inspection can be discussed where it can be arranged for your order.", "INSP"],
   ["Shipping documentation", "Invoice, packing list, origin and transport documents prepared for each order.", "SHIP"],
 ];
 
 const ASSURANCE = [
-  ["Substitutions need your approval", "A change of grade or supplier needs your approval before shipment."],
-  ["Report with evidence", "If a problem arises, report it with the batch details and supporting evidence."],
-  ["We review it with you", "We review each report with you. We do not offer an undefined quality guarantee."],
+  ["Changes need your approval", "A change of grade or supplier needs your approval before shipment."],
+  ["Criteria are agreed first", "Quality requirements and acceptance criteria are agreed before order confirmation."],
+  ["Report an issue with evidence", "If an issue arises, send the order reference, batch details, photographs and relevant test results so we can review it with the supplier."],
+];
+
+const COMPLIANCE = [
+  {
+    t: "Transport",
+    img: transport,
+    alt: "Containers at a port",
+    icon: ICONS.truck,
+    body: "Transport arrangements are reviewed for the specific product, grade, packing and route. Fuel charcoal and activated carbon are assessed separately. Applicable safety information, carrier acceptance and shipment documentation must be confirmed before booking.",
+  },
+  {
+    t: "Certification",
+    img: certification,
+    alt: "Certificates and documentation",
+    icon: ICONS.shield,
+    body: "Certification information is provided only where a valid document applies to the stated product, supplier or business activity. Please tell us any certification requirements for your market so we can confirm their applicability to the proposed supply.",
+  },
 ];
 
 /** Stylised document sheet with a folded corner (decorative lines only, no data). */
@@ -67,15 +84,15 @@ export default function Quality() {
     <>
       <Seo
         title="Quality and Documentation"
-        description="What buyers can review before ordering: data sheets, safety data sheets, certificates of analysis and agreed inspection."
+        description="What buyers can review before ordering: data sheets, safety data sheets, analysis records and agreed inspection."
       />
 
       <PageBanner
         eyebrow="Quality"
         title="Quality and Documentation"
-        body="Our team's industry experience informs how we review sourcing options and buyer requirements. Product specifications and test reports provide the evidence for each offered grade."
+        body="Review the specification, safety information and available test records for the proposed grade before confirming an order. Inspection requirements and acceptance criteria are agreed as part of the quotation."
       >
-        <QuoteLink className={BTN_PRIMARY}>Request Documents for a Grade <span aria-hidden="true">&rarr;</span></QuoteLink>
+        <QuoteLink type="technical-documents" className={BTN_PRIMARY}>Request Documents for a Grade <span aria-hidden="true">&rarr;</span></QuoteLink>
         <a href="#documents" className={BTN_GHOST_DARK}>See What You Can Review</a>
       </PageBanner>
 
@@ -101,13 +118,12 @@ export default function Quality() {
             />
             <ol className="relative mt-10 space-y-5 pl-8 sm:pl-10">
               <span className="absolute bottom-6 left-[0.6rem] top-6 border-l-2 border-dashed border-brass/50 sm:left-[0.9rem]" aria-hidden="true" />
-              {ROLES.map((r, i) => (
+              {ROLES.map((r) => (
                 <li key={r.who} className="relative rounded-2xl border border-charcoal/10 bg-ivory p-6 shadow-sm">
                   <span className="absolute -left-[2.9rem] top-5 flex h-12 w-12 items-center justify-center rounded-full border-4 border-white bg-charcoal text-brass shadow-md sm:-left-[3.35rem] sm:h-14 sm:w-14">
                     <Icon d={r.icon} className="h-5 w-5 sm:h-6 sm:w-6" />
                   </span>
-                  <p className="text-xs font-bold uppercase tracking-widest text-brass">Step {String(i + 1).padStart(2, "0")}</p>
-                  <h3 className="mt-1 font-serif text-xl font-bold text-charcoal">{r.who}</h3>
+                  <h3 className="font-serif text-xl font-bold text-charcoal">{r.who}</h3>
                   <p className="mt-2 text-sm leading-relaxed text-slate">{r.what}</p>
                 </li>
               ))}
@@ -136,7 +152,7 @@ export default function Quality() {
                 <h3 className="mt-4 font-serif text-lg font-bold text-brass">Need documents for a specific grade?</h3>
                 <p className="mt-2 text-sm leading-relaxed text-white/80">Ask for the documents you need and we will confirm what is available for that grade.</p>
               </div>
-              <QuoteLink className={`${BTN_PRIMARY} mt-6`}>Request Documents <span aria-hidden="true">&rarr;</span></QuoteLink>
+              <QuoteLink type="technical-documents" className={`${BTN_PRIMARY} mt-6`}>Request Documents <span aria-hidden="true">&rarr;</span></QuoteLink>
             </li>
           </ul>
         </div>
@@ -175,10 +191,7 @@ export default function Quality() {
         <div className={WRAP}>
           <SectionHeader eyebrow="Compliance" title="Transport and Certification" id="transport-title" center />
           <div className="mt-12 grid gap-8 lg:grid-cols-2">
-            {[
-             { t: "Transport", img: transport, alt: "Containers at a port", icon: ICONS.truck, body: "Fuel charcoal and activated carbon are reviewed separately for transport. ..." },
-             { t: "Certification", img: certification, alt: "Certificates and documentation", icon: ICONS.shield, body: "A certificate is shown on this site only for the exact product and scope it covers. ..." },
-            ].map((c) => (
+            {COMPLIANCE.map((c) => (
               <article key={c.t} className="group overflow-hidden rounded-2xl border border-charcoal/10 bg-ivory shadow-sm transition-shadow hover:shadow-xl">
                 <div className="relative">
                   <Photo src={c.img} alt={c.alt} ratio="aspect-[16/10]" zoom imgClass="object-center" />
@@ -204,7 +217,7 @@ export default function Quality() {
         title="Review Before You Order"
         body="Tell us the product and grade you are considering and we will confirm the documents available for it."
       >
-        <QuoteLink className={`${BTN_PRIMARY} px-8 py-3.5`}>Request Documents for a Grade <span aria-hidden="true">&rarr;</span></QuoteLink>
+        <QuoteLink type="technical-documents" className={`${BTN_PRIMARY} px-8 py-3.5`}>Request Documents for a Grade <span aria-hidden="true">&rarr;</span></QuoteLink>
         <Link to="/products/" className={`${BTN_GHOST_DARK} px-8 py-3.5`}>View Products</Link>
       </ClosingCta>
     </>

@@ -9,6 +9,9 @@ export const COMPANY = {
   address: "",   // registered business address, once reconciled
   hours: "",     // e.g. "Mon–Sat, 9:00–18:00 IST"
   country: "India",
+  legalName: "",      // exact registered legal name
+  exportContact: "",  // name and role
+  registration: "",   // identifiers approved for public display
 };
 
 export const EXPERIENCE_LINE = "A new name backed by over 25 years of industry experience.";
