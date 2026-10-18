@@ -26,12 +26,6 @@ const TRUST = [
   { title: "Quotation Terms", body: "Pack specification and minimum order quantity set in the quotation.", icon: ICONS.doc },
 ];
 
-/* Packaging matrix: publish ONLY verified options. Add a row per product slug when the
-   business confirms it, for example:
-   "pillow-charcoal-briquettes": { packType: "...", netWeight: "...", material: "...",
-     unitsPerCarton: "...", cartonDimensions: "...", grossWeight: "...", pallet: "...",
-     printMoq: "...", leadTime: "..." }
-   Leave a field out if it is not confirmed. Products with no entry show the interim text. */
 const PACKING_MATRIX = {};
 
 const PACK_FIELDS = [
