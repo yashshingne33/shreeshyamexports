@@ -96,8 +96,8 @@ export default function Quality() {
         <a href="#documents" className={BTN_GHOST_DARK}>See What You Can Review</a>
       </PageBanner>
 
-      <Breadcrumbs trail={[{ label: "Quality" }]} />
       <TrustStrip items={TRUST} />
+      <Breadcrumbs trail={[{ label: "Quality" }]} />
 
       {/* Evidence + responsibilities */}
       <section id="responsibilities" className={`${SECTION} scroll-mt-24 bg-white`} aria-labelledby="roles-title">

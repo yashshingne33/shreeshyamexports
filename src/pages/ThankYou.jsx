@@ -2,11 +2,18 @@ import { Link, Navigate, useLocation } from "react-router-dom";
 import { Seo, WRAP } from "../components/ui.jsx";
 import { Icon, ICONS, BTN_PRIMARY, BTN_GHOST_LIGHT } from "../components/PageKit.jsx";
 
+/* ------------------------------------------------------------------ *
+ * Success page (Section 11 of the change document).
+ * Shown ONLY with a reference that came from a saved enquiry record:
+ * the form must navigate here after the save succeeds, passing
+ *   state: { reference, products }
+ * A direct visit has no reference, so it goes back to the form and
+ * never shows a fake success. Do not claim a confirmation email was
+ * sent unless sending succeeded, and do not promise a response deadline.
+ * ------------------------------------------------------------------ */
 export default function ThankYou() {
   const { state } = useLocation();
-  if (!state?.reference) return <Navigate to="/request-a-quote/" replace />; // no fake success on direct visits
-
-  const first = state.name ? state.name.split(" ")[0] : "";
+  if (!state?.reference) return <Navigate to="/request-a-quote/" replace />;
 
   return (
     <section className="bg-ivory py-16 sm:py-20 lg:py-24">
@@ -20,12 +27,12 @@ export default function ThankYou() {
             </span>
             <p className="mt-6 text-xs font-bold uppercase tracking-widest text-brass">Enquiry Received</p>
             <h1 className="mt-3 font-serif text-3xl font-bold leading-tight text-charcoal sm:text-4xl">
-              We have received your enquiry{first ? `, ${first}` : ""}
+              Thank you. Your enquiry has been received.
             </h1>
 
-            <div className="mt-8 rounded-xl border-2 border-dashed border-brass/50 bg-ivory p-5">
-              <p className="text-xs font-bold uppercase tracking-widest text-slate">Your reference</p>
-              <p className="mt-1 font-serif text-2xl font-bold tracking-wide text-charcoal">{state.reference}</p>
+            <div className="mt-8 rounded-xl border-2 border-dashed border-brass/50 bg-ivory p-5" role="status">
+              <p className="text-xs font-bold uppercase tracking-widest text-slate">Your reference is</p>
+              <p className="mt-1 break-all font-serif text-2xl font-bold tracking-wide text-charcoal">{state.reference}</p>
             </div>
 
             {state.products?.length > 0 && (
@@ -33,7 +40,7 @@ export default function ThankYou() {
             )}
 
             <p className="mx-auto mt-5 max-w-md leading-relaxed text-slate">
-              Our export desk will review your requirements and reply by email. Please quote your reference in any follow-up.
+              Our export team will review your requirements and respond by email. Please quote your reference in any follow-up.
             </p>
 
             <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row">

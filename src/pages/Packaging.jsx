@@ -71,9 +71,9 @@ export default function Packaging() {
         <QuoteLink type="private-label" className={BTN_PRIMARY}>Discuss Packaging <span aria-hidden="true">&rarr;</span></QuoteLink>
         <a href="#workflow" className={BTN_GHOST_DARK}>Private-Label Workflow</a>
       </PageBanner>
-
-      <Breadcrumbs trail={[{ label: "Packaging" }]} />
+   
       <TrustStrip items={TRUST} />
+      <Breadcrumbs trail={[{ label: "Packaging" }]} />
 
       {/* Three routes as photo tiles */}
       <section className={`${SECTION} bg-white`} aria-labelledby="routes-title">
