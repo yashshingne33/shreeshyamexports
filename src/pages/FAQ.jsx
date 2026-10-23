@@ -47,9 +47,9 @@ export default function FAQ() {
         </div>
       </section>
 
-      <ClosingCta id="faq-cta" image={IMAGES.ship} title="Ready to Discuss Your Requirements?" body="Tell us the product, quantity and destination.">
+      {/* <ClosingCta id="faq-cta" image={IMAGES.ship} title="Ready to Discuss Your Requirements?" body="Tell us the product, quantity and destination.">
         <QuoteLink className={`${BTN_PRIMARY} px-8 py-3.5`}>Send Your Requirements <span aria-hidden="true">&rarr;</span></QuoteLink>
-      </ClosingCta>
+      </ClosingCta> */}
     </>
   );
 }
