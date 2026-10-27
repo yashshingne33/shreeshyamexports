@@ -574,12 +574,12 @@ const HOME_FLOW = [
   ["Shipment Coordination", "Confirm the route and dispatch arrangements for the agreed order."],
 ];
 
-const ENQUIRY_ITEMS = [
-  "Product and grade or format you need",
-  "Approximate quantity and packing preference",
-  "Destination country or port",
-  "Technical specification, if you have one",
-];
+// const ENQUIRY_ITEMS = [
+//   "Product and grade or format you need",
+//   "Approximate quantity and packing preference",
+//   "Destination country or port",
+//   "Technical specification, if you have one",
+// ];
 
 const ENQUIRY_STEPS = [
   ["Send your requirement", "Product, quantity and destination."],
@@ -909,80 +909,67 @@ export default function Home() {
       </section>
 
       {/* 07 Send your requirement */}
-      <section id="rfq" className={`${SECTION} scroll-mt-20 bg-white sm:scroll-mt-24`} aria-labelledby="rfq-title">
-        <div className={WRAP}>
-          <div className="relative overflow-hidden rounded-2xl bg-charcoal text-white shadow-2xl sm:rounded-3xl">
-            <div className="pointer-events-none absolute inset-0" style={GRID_BG} aria-hidden="true" />
-            {/* blur glow only where there is GPU headroom (keeps phone scrolling smooth) */}
-            <div className="pointer-events-none absolute -right-24 -top-24 hidden h-72 w-72 rounded-full bg-brass/15 blur-3xl md:block" aria-hidden="true" />
-            <div className="h-1.5 bg-brass" aria-hidden="true" />
+<section id="rfq" className={`${SECTION} scroll-mt-20 bg-white sm:scroll-mt-24`} aria-labelledby="rfq-title">
+  <div className={WRAP}>
+    <div className="relative overflow-hidden rounded-2xl bg-charcoal text-white shadow-2xl sm:rounded-3xl">
 
-            <div className="relative grid gap-8 p-5 min-[400px]:p-6 sm:gap-10 sm:p-10 lg:grid-cols-12 lg:gap-14 lg:p-14 xl:p-16">
-              {/* Left: message + actions */}
-              <div className="lg:col-span-7">
-                <span className="block h-0.5 w-10 bg-brass" aria-hidden="true" />
-                <h2 id="rfq-title" className="mt-4 font-serif text-3xl font-bold leading-tight text-brass sm:text-4xl lg:text-5xl">
-                  Send Your Requirement
-                </h2>
-                <p className="mt-4 max-w-xl text-base leading-relaxed text-white/85 sm:mt-5 sm:text-lg">
-                  Send your product requirement, estimated quantity and destination port. Attach your specification or packaging brief so our export team can review the details and prepare the next steps.
-                </p>
+      {/* faint product image, ties the CTA to the hero */}
+      <img
+        src={heroImg}
+        alt=""
+        loading="lazy"
+        decoding="async"
+        className="pointer-events-none absolute inset-0 h-full w-full object-cover object-[72%_center] opacity-[0.14]"
+        aria-hidden="true"
+      />
+      {/* dark overlay so text always stays readable */}
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-charcoal/80 via-charcoal/70 to-charcoal/95" aria-hidden="true" />
+      {/* brass spotlight behind the heading */}
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{ background: "radial-gradient(ellipse 60% 55% at 50% 30%, rgba(176,141,69,0.22), transparent 70%)" }}
+        aria-hidden="true"
+      />
+      {/* decorative rings (desktop) */}
+      {/* <span className="pointer-events-none absolute left-1/2 top-1/2 hidden h-[34rem] w-[34rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-brass/15 md:block" aria-hidden="true" />
+      <span className="pointer-events-none absolute left-1/2 top-1/2 hidden h-[48rem] w-[48rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-brass/10 md:block" aria-hidden="true" /> */}
 
-                <div className="mt-7 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:gap-4">
-                  <QuoteLink className={`${BTN_PRIMARY} justify-center px-7 py-3.5 text-center`}>Request a Quote <span aria-hidden="true">&rarr;</span></QuoteLink>
-                  <Link to="/contact/" className={`${BTN_GHOST_DARK} justify-center px-7 py-3.5 text-center`}>Contact Our Export Team</Link>
-                </div>
+      <div className="h-1.5 bg-brass" aria-hidden="true" />
 
-                {COMPANY.email && (
-                  <p className="mt-5 text-sm text-white/80">
-                    Or email us at{" "}
-                    <a
-                      href={`mailto:${COMPANY.email}`}
-                      className="break-all font-semibold text-brass underline decoration-2 underline-offset-4 transition-colors hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brass"
-                    >
-                      {COMPANY.email}
-                    </a>
-                  </p>
-                )}
-
-                <ol className="mt-10 grid gap-5 border-t border-white/15 pt-7 sm:mt-12 sm:grid-cols-3 sm:gap-6 sm:pt-8">
-                  {ENQUIRY_STEPS.map(([t, d], i) => (
-                    <li key={t} className="flex gap-3">
-                      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-brass/60 font-serif text-sm font-bold text-brass">{i + 1}</span>
-                      <div className="min-w-0">
-                        <h3 className="text-sm font-bold text-white">{t}</h3>
-                        <p className="mt-1 text-xs leading-relaxed text-white/70">{d}</p>
-                      </div>
-                    </li>
-                  ))}
-                </ol>
-              </div>
-
-              {/* Right: what to include + contact */}
-              <div className="lg:col-span-5">
-                <div className="rounded-2xl border border-white/15 bg-white/5 p-5 sm:p-8">
-                  <h3 className="font-serif text-xl font-bold text-white">Include in your enquiry</h3>
-                  <ul className="mt-5 space-y-3">
-                    {ENQUIRY_ITEMS.map((x) => (
-                      <li key={x} className="flex items-start gap-3 text-sm leading-relaxed text-white/85">
-                        <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brass/20 text-brass">
-                          <Icon d={ICONS.check} className="h-4 w-4" />
-                        </span>
-                        <span className="min-w-0">{x}</span>
-                      </li>
-                    ))}
-                  </ul>
-
-                  <div className="mt-6 min-w-0 break-words border-t border-white/15 pt-6 sm:mt-7">
-                    <h3 className="font-serif text-xl font-bold text-brass">Reach our export desk</h3>
-                    <ContactLines className="mt-4 text-white/85" />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+      <div className="relative mx-auto flex max-w-3xl flex-col items-center px-6 py-14 text-center sm:px-10 sm:py-16 lg:py-20">
+        <div className="inline-flex items-center gap-3 rounded-full border border-brass/40 bg-white/5 py-1.5 pl-3 pr-4">
+          <span className="h-2 w-2 shrink-0 rounded-full bg-brass" aria-hidden="true" />
+          <span className="text-[0.65rem] font-bold uppercase tracking-widest text-brass sm:text-xs">Get a Quotation</span>
         </div>
-      </section>
+
+        <h2 id="rfq-title" className="mt-5 font-serif text-3xl font-bold leading-tight text-white [text-wrap:balance] sm:text-4xl lg:text-5xl">
+          Send Your <span className="text-brass">Requirement</span>
+        </h2>
+
+        {/* small brass divider */}
+        <div className="mt-5 flex items-center gap-3" aria-hidden="true">
+          <span className="h-px w-10 bg-gradient-to-r from-transparent to-brass/70" />
+          <span className="h-1.5 w-1.5 rotate-45 bg-brass" />
+          <span className="h-px w-10 bg-gradient-to-l from-transparent to-brass/70" />
+        </div>
+
+        <p className="mt-5 max-w-xl text-base leading-relaxed text-white/80 sm:text-lg">
+          Share your product, quantity and destination port. Our export team will review your specification and reply with a quotation.
+        </p>
+
+        <div className="mt-8 flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:gap-4">
+          <QuoteLink className={`${BTN_PRIMARY} justify-center px-8 py-3.5 text-center font-bold shadow-lg shadow-brass/25 transition-transform sm:min-w-[12rem] ${LIFT_SM}`}>
+            Request a Quote <span aria-hidden="true">&rarr;</span>
+          </QuoteLink>
+          <Link to="/contact/" className={`${BTN_GHOST_DARK} justify-center px-8 py-3.5 text-center transition-transform sm:min-w-[12rem] ${LIFT_SM}`}>
+            Contact Us
+          </Link>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
     </>
   );
 }
