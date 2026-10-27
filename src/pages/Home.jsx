@@ -599,7 +599,6 @@ export default function Home() {
       />
 
       {/* 01 Hero */}
-      {/* 01 Hero */}
       <section aria-labelledby="hero-title">
         <div className="relative flex w-full items-center overflow-hidden bg-ivory text-charcoal sm:min-h-[26rem] lg:min-h-[clamp(460px,calc(100svh-14rem),620px)]">
 
@@ -610,7 +609,7 @@ export default function Home() {
               alt=""
               fetchPriority="high"
               decoding="async"
-              className="h-full w-full object-cover object-[72%_bottom] lg:[mask-image:linear-gradient(to_right,transparent_0%,transparent_28%,#000_55%)]"
+              className="h-full w-full object-cover object-[72%_bottom] lg:[mask-image:linear-gradient(to_right,transparent_0%,transparent_30%,#000_42%)]"
             />
             {/* Phone: light even veil so the text stays readable, with the image visible below it */}
             <div className="absolute inset-0 bg-gradient-to-b from-ivory/70 via-ivory/35 to-ivory/10 sm:hidden" aria-hidden="true" />
